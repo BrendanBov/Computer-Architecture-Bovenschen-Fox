@@ -1,0 +1,17 @@
+//regfile.tv
+//test vectors for regfile
+
+//format:
+//we3_ra1_ra2_wa3_wd3_rd1exp_rd2exp
+
+//initialize write enable, write test value at address 1
+1_00_00_01_a0a0a0a0_00000000_00000000
+
+//read at addresses 0 and 1, write to 0 has no effect
+1_00_01_00_b0b0b0b0_00000000_a0a0a0a0
+
+//switch read addresses, write disabled by we3
+0_01_00_01_c0c0c0c0_a0a0a0a0_00000000
+
+//write disabled by we3
+0_01_00_01_c0c0c0c0_a0a0a0a0_00000000

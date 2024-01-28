@@ -1,0 +1,192 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11f vlog 2021.3 2021.07, Jul 13 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 dC:/Users/brend/OneDrive/Desktop/Computer Architecture Labs/lab0
+T_opt
+!s110 1705784990
+Vg5hM<23A?]_JPZR<@4R512
+Z2 04 8 4 work stimulus fast 0
+=1-7c10c924b963-65ac369d-3aa-3300
+Z3 !s124 OEM100
+Z4 o-quiet -auto_acc_if_foreign -work work +acc
+Z5 tCvgOpt 0
+n@_opt
+Z6 OL;O;2021.3;73
+R1
+T_opt1
+!s110 1706303326
+VYZ1Y3n]YJ?@PBQYfi^BoQ1
+R2
+=1-7c10c924b963-65b41f5e-bd-3d44
+R3
+R4
+R5
+n@_opt1
+R6
+R1
+T_opt2
+!s110 1706412687
+Vg?C`MDEEO:[<:_OhQV6K_0
+R2
+=1-7c10c924b963-65b5ca8e-352-3f40
+R3
+R4
+R5
+n@_opt2
+R6
+vregfile
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 !s110 1706412686
+!i10b 1
+!s100 =^Ac8_SIH18l]djTTj8Rh1
+Ii8PM^cM[`?1`TO6F[[^Y:1
+S1
+R1
+w1706403984
+8regfile.sv
+Fregfile.sv
+!i122 0
+L0 1 30
+Z9 VDg1SIo80bB@j0V0VzS_@n1
+Z10 OL;L;2021.3;73
+r1
+!s85 0
+31
+Z11 !s108 1706412686.000000
+Z12 !s107 regfile_tb.sv|regfile.sv|
+Z13 !s90 -reportprogress|300|regfile.sv|regfile_tb.sv|
+!i113 0
+Z14 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R5
+vstimulus
+R7
+R8
+!i10b 1
+!s100 ma@3cdkT@J7BO>cE468MU1
+I9=XJ^]]04Vd`XXGBUIPhm0
+S1
+R1
+w1706412269
+8regfile_tb.sv
+Fregfile_tb.sv
+!i122 0
+L0 1 79
+R9
+R10
+r1
+!s85 0
+31
+R11
+R12
+R13
+!i113 0
+R14
+R5
