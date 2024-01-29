@@ -15,15 +15,17 @@
     begin
 
       if(we3) //write logic
-        rf[wa3] = wd3; //write wd3 to rf at wa3
+        if(wa3 == 5'b00000); //dont write to register 0
+        else rf[wa3] = wd3; //write wd3 to rf at wa3
 
       rf[5'b00000] = 32'h00000000; //always write register 0 to value 0
     end
 
     always_comb 
       begin
-        rd1 <= rf[ra1]; //write to output register 1
-        rd2 <= rf[ra2]; //write to output register 2
+        //multiplexer so value 0 is always read from register 0
+        rd1 <= (5'b00000) ? (32'h00000000) : rf[ra1]; //write to output register 1
+        rd2 <= (5'b00000) ? (32'h00000000) : rf[ra2]; //write to output register 2
       end
    
    
