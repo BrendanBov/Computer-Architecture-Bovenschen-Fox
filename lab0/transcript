@@ -17,17 +17,17 @@
 # ** Warning: (vlib-34) Library already exists at "work".
 # Errors: 0, Warnings: 1
 # Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 21:31:26 on Jan 27,2024
+# Start time: 20:30:14 on Jan 29,2024
 # vlog -reportprogress 300 regfile.sv regfile_tb.sv 
 # -- Compiling module regfile
 # -- Compiling module stimulus
 # 
 # Top level modules:
 # 	stimulus
-# End time: 21:31:26 on Jan 27,2024, Elapsed time: 0:00:00
+# End time: 20:30:14 on Jan 29,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -voptargs="+acc" work.stimulus 
-# Start time: 21:31:26 on Jan 27,2024
+# Start time: 20:30:14 on Jan 29,2024
 # ** Note: (vsim-3812) Design is being optimized...
 # Loading sv_std.std
 # Loading work.stimulus(fast)
@@ -36,12 +36,12 @@
 # .main_pane.wave.interior.cs.body.pw.wf
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: brend  Hostname: LAPTOP-E202R8E9  ProcessID: 13056
-#           Attempting to use alternate WLF file "./wlft88tgqy".
+#           Attempting to use alternate WLF file "./wlfthj3r0m".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft88tgqy
-#          4 tests completed with          0 errors
-# ** Note: $stop    : regfile_tb.sv(67)
-#    Time: 35 ns  Iteration: 1  Instance: /stimulus
-# Break in Module stimulus at regfile_tb.sv line 67
-# End time: 21:32:10 on Jan 27,2024, Elapsed time: 0:00:44
+#           Using alternate file: ./wlfthj3r0m
+#         36 tests completed with          0 errors
+# ** Note: $stop    : regfile_tb.sv(68)
+#    Time: 355 ns  Iteration: 1  Instance: /stimulus
+# Break in Module stimulus at regfile_tb.sv line 68
+# End time: 20:30:34 on Jan 29,2024, Elapsed time: 0:00:20
 # Errors: 0, Warnings: 2

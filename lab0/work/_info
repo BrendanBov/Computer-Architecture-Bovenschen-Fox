@@ -102,6 +102,9 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
 !s11f vlog 2021.3 2021.07, Jul 13 2021
 13
 !s112 1.1
@@ -133,60 +136,60 @@ n@_opt1
 R6
 R1
 T_opt2
-!s110 1706412687
-Vg?C`MDEEO:[<:_OhQV6K_0
+Z7 !s110 1706581814
+V<>oNd4FK<Sbb_71ge]2KO1
 R2
-=1-7c10c924b963-65b5ca8e-352-3f40
+=1-7c10c924b963-65b85f36-2ba-5b30
 R3
 R4
 R5
 n@_opt2
 R6
 vregfile
-Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z8 !s110 1706412686
+Z8 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R7
 !i10b 1
-!s100 =^Ac8_SIH18l]djTTj8Rh1
-Ii8PM^cM[`?1`TO6F[[^Y:1
+!s100 4SWW@cD:_gfaS:UzUffHi0
+ITT^7B>RzA_HG9:`P`7m6h2
 S1
-R1
-w1706403984
+Z9 dC:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab0
+w1706559579
 8regfile.sv
 Fregfile.sv
 !i122 0
-L0 1 30
-Z9 VDg1SIo80bB@j0V0VzS_@n1
-Z10 OL;L;2021.3;73
+L0 1 29
+Z10 VDg1SIo80bB@j0V0VzS_@n1
+Z11 OL;L;2021.3;73
 r1
 !s85 0
 31
-Z11 !s108 1706412686.000000
-Z12 !s107 regfile_tb.sv|regfile.sv|
-Z13 !s90 -reportprogress|300|regfile.sv|regfile_tb.sv|
+Z12 !s108 1706581814.000000
+Z13 !s107 regfile_tb.sv|regfile.sv|
+Z14 !s90 -reportprogress|300|regfile.sv|regfile_tb.sv|
 !i113 0
-Z14 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z15 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R5
 vstimulus
-R7
 R8
+R7
 !i10b 1
-!s100 ma@3cdkT@J7BO>cE468MU1
-I9=XJ^]]04Vd`XXGBUIPhm0
+!s100 E6ocn]aaMJ3HXC<31ISND1
+If]K1Z@::UPKT73NXL`cPj2
 S1
-R1
-w1706412269
+R9
+w1706569728
 8regfile_tb.sv
 Fregfile_tb.sv
 !i122 0
-L0 1 79
-R9
+L0 1 80
 R10
+R11
 r1
 !s85 0
 31
-R11
 R12
 R13
-!i113 0
 R14
+!i113 0
+R15
 R5

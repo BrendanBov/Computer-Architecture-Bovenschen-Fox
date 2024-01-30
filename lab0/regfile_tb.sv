@@ -36,10 +36,11 @@ module stimulus ();
       handle3 = $fopen("testReg.out");
 
       $readmemh("regfile.tv", testvectors); //read test vectors
+    
       vectornum = 0; errors = 0;
 
       // Finish simulation after 500ns
-      #500 $finish;
+      #5000 $finish;
      end
 
   always @ (posedge clock)
