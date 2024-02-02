@@ -40,6 +40,8 @@ typedef struct {
   uint8_t *mem;
 } mem_region_t;
 
+//my name is brendan!
+
 /* memory will be dynamically allocated at initialization */
 mem_region_t MEM_REGIONS[] = {
   { MEM_TEXT_START, MEM_TEXT_SIZE, NULL },
