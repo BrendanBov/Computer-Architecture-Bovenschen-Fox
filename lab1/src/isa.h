@@ -23,12 +23,10 @@
 #define SIGNEXT(v, sb) ((v) | (((v) & (1 << (sb))) ? ~((1 << (sb))-1) : 0))
 
 int ADD(int Rd, int Rs1, int Rs2, int Funct3) {
-
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] + CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
-
 }
 
 int ADDI(int Rd, int Rs1, int Imm, int Funct3) {
@@ -76,23 +74,69 @@ int SW(char* i_);
 
 // R instruction
 
-/* In progess */
-int SUB(int Rd, int Rs1, int Rs2, int Funct3) {
-
+int SUB(int Rd, int Rs1, int Rs2, int Funct3)
+{
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] - CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
-
 }
-int SLL(char* i_);
-int SLT(char* i_);
-int SLTU(char* i_);
-int XOR(char* i_);
-int SRL(char* i_);
-int SRA(char* i_);
-int OR(char* i_);
-int AND(char* i_);
+int SLL(int Rd, int Rs1, int Rs2, int Funct3) //TODO: idk what rs2 5/4:0 means
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] << CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int SLT(int Rd, int Rs1, int Rs2, int Funct3)
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] < CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int SLTU(int Rd, int Rs1, int Rs2, int Funct3) //TODO: idk whats different SLTU and SLT
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] < CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int XOR(int Rd, int Rs1, int Rs2, int Funct3)
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] ^ CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int SRL(int Rd, int Rs1, int Rs2, int Funct3) //TODO: idk what rs2 5/4:0 means
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] >> CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int SRA(int Rd, int Rs1, int Rs2, int Funct3) //TODO: idk what rs2 5/4:0 means
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] >>= CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int OR(int Rd, int Rs1, int Rs2, int Funct3)
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] | CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
+int AND(int Rd, int Rs1, int Rs2, int Funct3)
+{
+    int cur = 0;
+    cur = CURRENT_STATE.REGS[Rs1] & CURRENT_STATE.REGS[Rs2];
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
 
 // B instructions
 int BEQ(char* i_);
