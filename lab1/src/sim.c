@@ -86,11 +86,79 @@ int r_process(char* i_) {
     int Rs2 = bchar_to_int(rs2);
     int Rd = bchar_to_int(rd);
     int Funct3 = bchar_to_int(funct3);
+    //int Funct7 = bchar_to_int(funct7);
     printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Rd = %d\n Funct3 = %d\n\n",
         d_opcode, Rs1, Rs2, Rd, Funct3);
     printf("\n");
 
+    /*if(!strcmp(d_opcode,"0110011"))
+    {
     //handle r types with opcode 51
+      switch(Funct3)
+      {
+        case 000:
+        if(Funct7 == 0000000)
+        {
+          printf("--- This is an ADD instruction. \n");
+          ADD(Rd, Rs1, Rs2, Funct3);
+        }
+        else if(Funct7 == 0100000)
+        {
+          printf("--- This is a SUB instruction. \n");
+          SUB(Rd, Rs1, Rs2, Funct3);
+        }
+        break;
+
+        case 001:
+        printf("--- This is an SLL instruction. \n");
+        SLL(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        case 010:
+        printf("--- This is an SLT instruction. \n");
+        SLT(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        case 011:
+        printf("--- This is an SLTU instruction. \n");
+        SLTU(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        case 100:
+        printf("--- This is an XOR instruction. \n");
+        XOR(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        case 101:
+        if(Funct7 == 0000000)
+        {
+          printf("--- This is an SRL instruction. \n");
+          SRL(Rd, Rs1, Rs2, Funct3);
+        }
+        else if(Funct7 == 0100000)
+        {
+          printf("--- This is a SRA instruction. \n");
+          SRA(Rd, Rs1, Rs2, Funct3);
+        }
+        break;
+
+        case 110:
+        printf("--- This is a OR instruction. \n");
+        OR(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        case 111:
+        printf("--- This is a AND instruction. \n");
+        AND(Rd, Rs1, Rs2, Funct3);
+        break;
+
+        default:
+        return 1;
+        break;
+      }
+
+      return 0;
+    }*/
     if (!strcmp(d_opcode, "0110011"))
     {
         //ADD and SUB both funct3 "000"
@@ -154,9 +222,6 @@ int r_process(char* i_) {
         return 0;
     }
 
-
-    /* Add other data instructions here */
-
     return 1;
 }
 
@@ -193,10 +258,29 @@ int i_process(char* i_) {
         d_opcode, Rs1, Imm, Rd, Funct3);
     printf("\n");
 
-    /* Add other imm instructions here */
 
+    if (!strcmp(d_opcode, "0000011"))
+    {
+        if (!strcmp(funct3, "000"))
+        {
+            printf("--- This is an LB instruction. \n");
+            LB(Rd, Imm, Rs1);
+        }
+        if (!strcmp(funct3, "001"))
+        {
+            printf("--- This is an LH instruction. \n");
+            LH(Rd, Imm, Rs1);
+        }
+        if (!strcmp(funct3, "010"))
+        {
+            printf("--- This is an LW instruction. \n");
+            LW(Rd, Imm, Rs1);
+        }
+        return 0;
+    }
     /* This is an Add Immediate Instruciton */
-    if (!strcmp(d_opcode, "0010011")) {
+    else if (!strcmp(d_opcode, "0010011"))
+    {
         printf("--- This is an ADDI instruction. \n");
         ADDI(Rd, Rs1, Imm, Funct3);
         return 0;
