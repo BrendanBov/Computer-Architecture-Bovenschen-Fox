@@ -20,17 +20,16 @@
 //   if no, just give number
 //   if yes, sign extend (e.g., 0x80_0000 -> 0xFF80_0000)
 //
-//first one maybe needs to be v & (1 << (sb - 1))
-#define SIGNEXT(v, sb) ( (1 << (sb - 1)) ? ~((1 << (sb)) - 1) : v)
+#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb)) - 1) : v)
 
-int ADD(int Rd, int Rs1, int Rs2, int Funct3) {
+int ADD(int Rd, int Rs1, int Rs2) {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] + CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
 
-int ADDI(int Rd, int Rs1, int Imm, int Funct3)
+int ADDI(int Rd, int Rs1, int Imm)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
@@ -38,7 +37,7 @@ int ADDI(int Rd, int Rs1, int Imm, int Funct3)
     return 0;
 }
 
-int BNE(int Rs1, int Rs2, int Imm, int Funct3)
+int BNE(int Rs1, int Rs2, int Imm)
 {
     int cur = 0;
     Imm = Imm << 1;
@@ -46,8 +45,9 @@ int BNE(int Rs1, int Rs2, int Imm, int Funct3)
         NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
     return 0;
 }
-
+//
 // I Instructions
+//
 // int LB (char* i_);
 //Imm acts as effective address
 int LB(int Rd, int Imm, int Rs1)
@@ -149,63 +149,63 @@ int SW(char* i_);
 
 // R instruction
 
-int SUB(int Rd, int Rs1, int Rs2, int Funct3)
+int SUB(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] - CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int SLL(int Rd, int Rs1, int Rs2, int Funct3) //31 and mask used to mask outside of last 5 bits
+int SLL(int Rd, int Rs1, int Rs2) //31 and mask used to mask outside of last 5 bits
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] << (31 & CURRENT_STATE.REGS[Rs2]);
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int SLT(int Rd, int Rs1, int Rs2, int Funct3)
+int SLT(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] < CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int SLTU(int Rd, int Rs1, int Rs2, int Funct3)
+int SLTU(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = (unsigned int)CURRENT_STATE.REGS[Rs1] < (unsigned int)CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int XOR(int Rd, int Rs1, int Rs2, int Funct3)
+int XOR(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] ^ CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int SRL(int Rd, int Rs1, int Rs2, int Funct3)
+int SRL(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] >> (31 & CURRENT_STATE.REGS[Rs2]);
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int SRA(int Rd, int Rs1, int Rs2, int Funct3)
+int SRA(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] >>= (31 & CURRENT_STATE.REGS[Rs2]);
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int OR(int Rd, int Rs1, int Rs2, int Funct3)
+int OR(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] | CURRENT_STATE.REGS[Rs2];
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
-int AND(int Rd, int Rs1, int Rs2, int Funct3)
+int AND(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] & CURRENT_STATE.REGS[Rs2];

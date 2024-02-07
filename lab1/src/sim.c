@@ -86,141 +86,142 @@ int r_process(char* i_) {
     int Rs2 = bchar_to_int(rs2);
     int Rd = bchar_to_int(rd);
     int Funct3 = bchar_to_int(funct3);
-    //int Funct7 = bchar_to_int(funct7);
+    int Funct7 = bchar_to_int(funct7);
     printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Rs2, Rd, Funct3);
+        d_opcode, Rs1, Rs2, Rd);
     printf("\n");
 
-    /*if(!strcmp(d_opcode,"0110011"))
-    {
-    //handle r types with opcode 51
-      switch(Funct3)
-      {
-        case 000:
-        if(Funct7 == 0000000)
-        {
-          printf("--- This is an ADD instruction. \n");
-          ADD(Rd, Rs1, Rs2, Funct3);
-        }
-        else if(Funct7 == 0100000)
-        {
-          printf("--- This is a SUB instruction. \n");
-          SUB(Rd, Rs1, Rs2, Funct3);
-        }
-        break;
-
-        case 001:
-        printf("--- This is an SLL instruction. \n");
-        SLL(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        case 010:
-        printf("--- This is an SLT instruction. \n");
-        SLT(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        case 011:
-        printf("--- This is an SLTU instruction. \n");
-        SLTU(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        case 100:
-        printf("--- This is an XOR instruction. \n");
-        XOR(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        case 101:
-        if(Funct7 == 0000000)
-        {
-          printf("--- This is an SRL instruction. \n");
-          SRL(Rd, Rs1, Rs2, Funct3);
-        }
-        else if(Funct7 == 0100000)
-        {
-          printf("--- This is a SRA instruction. \n");
-          SRA(Rd, Rs1, Rs2, Funct3);
-        }
-        break;
-
-        case 110:
-        printf("--- This is a OR instruction. \n");
-        OR(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        case 111:
-        printf("--- This is a AND instruction. \n");
-        AND(Rd, Rs1, Rs2, Funct3);
-        break;
-
-        default:
-        return 1;
-        break;
-      }
-
-      return 0;
-    }*/
     if (!strcmp(d_opcode, "0110011"))
     {
-        //ADD and SUB both funct3 "000"
-        if (!strcmp(funct3, "000"))
+        //handle r types with opcode 51
+        switch (Funct3)
         {
-            if (!strcmp(funct7, "0000000"))
+        case 0:
+            if (Funct7 == 0)
             {
                 printf("--- This is an ADD instruction. \n");
-                ADD(Rd, Rs1, Rs2, Funct3);
+                ADD(Rd, Rs1, Rs2);
             }
-            else if (!strcmp(funct7, "0100000"))
+            else if (Funct7 == 32) //0100000
             {
                 printf("--- This is a SUB instruction. \n");
-                SUB(Rd, Rs1, Rs2, Funct3);
+                SUB(Rd, Rs1, Rs2);
             }
-        }
-        else if (!strcmp(funct3, "001"))
-        {
+            break;
+
+        case 1:
             printf("--- This is an SLL instruction. \n");
-            SLL(Rd, Rs1, Rs2, Funct3);
-        }
-        else if (!strcmp(funct3, "010"))
-        {
+            SLL(Rd, Rs1, Rs2);
+            break;
+
+        case 2:
             printf("--- This is an SLT instruction. \n");
-            SLT(Rd, Rs1, Rs2, Funct3);
-        }
-        else if (!strcmp(funct3, "011"))
-        {
+            SLT(Rd, Rs1, Rs2);
+            break;
+
+        case 3:
             printf("--- This is an SLTU instruction. \n");
-            SLTU(Rd, Rs1, Rs2, Funct3);
-        }
-        else if (!strcmp(funct3, "100"))
-        {
+            SLTU(Rd, Rs1, Rs2);
+            break;
+
+        case 4:
             printf("--- This is an XOR instruction. \n");
-            XOR(Rd, Rs1, Rs2, Funct3);
-        }
-        else if (!strcmp(funct3, "101"))
-        {
-            if (!strcmp(funct7, "0000000"))
+            XOR(Rd, Rs1, Rs2);
+            break;
+
+        case 5:
+            if (Funct7 == 0)
             {
                 printf("--- This is an SRL instruction. \n");
-                SRL(Rd, Rs1, Rs2, Funct3);
+                SRL(Rd, Rs1, Rs2);
             }
-            else if (!strcmp(funct7, "0100000"))
+            else if (Funct7 == 32) //0100000
             {
                 printf("--- This is a SRA instruction. \n");
-                SRA(Rd, Rs1, Rs2, Funct3);
+                SRA(Rd, Rs1, Rs2);
             }
-        }
-        else if (!strcmp(funct3, "110"))
-        {
+            break;
+
+        case 6:
             printf("--- This is a OR instruction. \n");
-            OR(Rd, Rs1, Rs2, Funct3);
-        }
-        else if (!strcmp(funct3, "111"))
-        {
+            OR(Rd, Rs1, Rs2);
+            break;
+
+        case 7:
             printf("--- This is a AND instruction. \n");
-            AND(Rd, Rs1, Rs2, Funct3);
+            AND(Rd, Rs1, Rs2);
+            break;
+
+        default:
+            return 1;
+            break;
         }
 
         return 0;
     }
+    /*
+    if(!strcmp(d_opcode,"0110011"))
+    {
+      //ADD and SUB both funct3 "000"
+      if(!strcmp(funct3, "000"))
+      {
+        if(!strcmp(funct7,"0000000"))
+        {
+          printf("--- This is an ADD instruction. \n");
+          ADD(Rd, Rs1, Rs2);
+        }
+        else if(!strcmp(funct7,"0100000"))
+        {
+          printf("--- This is a SUB instruction. \n");
+          SUB(Rd, Rs1, Rs2);
+        }
+      }
+      else if(!strcmp(funct3,"001"))
+      {
+        printf("--- This is an SLL instruction. \n");
+        SLL(Rd, Rs1, Rs2);
+      }
+      else if(!strcmp(funct3,"010"))
+      {
+        printf("--- This is an SLT instruction. \n");
+        SLT(Rd, Rs1, Rs2);
+      }
+      else if(!strcmp(funct3,"011"))
+      {
+        printf("--- This is an SLTU instruction. \n");
+        SLTU(Rd, Rs1, Rs2);
+      }
+      else if(!strcmp(funct3,"100"))
+      {
+        printf("--- This is an XOR instruction. \n");
+        XOR(Rd, Rs1, Rs2);
+      }
+      else if(!strcmp(funct3,"101"))
+      {
+        if(!strcmp(funct7,"0000000"))
+        {
+          printf("--- This is an SRL instruction. \n");
+          SRL(Rd, Rs1, Rs2);
+        }
+        else if(!strcmp(funct7,"0100000"))
+        {
+          printf("--- This is a SRA instruction. \n");
+          SRA(Rd, Rs1, Rs2);
+        }
+      }
+      else if(!strcmp(funct3,"110"))
+      {
+        printf("--- This is a OR instruction. \n");
+        OR(Rd, Rs1, Rs2);
+      }
+      else if(!strcmp(funct3,"111"))
+      {
+        printf("--- This is a AND instruction. \n");
+        AND(Rd, Rs1, Rs2);
+      }
+
+      return 0;
+    }*/
 
     return 1;
 }
@@ -255,7 +256,7 @@ int i_process(char* i_) {
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
     printf("Opcode = %s\n Rs1 = %d\n Imm = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Imm, Rd, Funct3);
+        d_opcode, Rs1, Imm, Rd);
     printf("\n");
 
 
@@ -282,7 +283,7 @@ int i_process(char* i_) {
     else if (!strcmp(d_opcode, "0010011"))
     {
         printf("--- This is an ADDI instruction. \n");
-        ADDI(Rd, Rs1, Imm, Funct3);
+        ADDI(Rd, Rs1, Imm);
         return 0;
     }
 
@@ -333,7 +334,7 @@ int b_process(char* i_) {
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
     printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Imm = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Rs2, Imm, Funct3);
+        d_opcode, Rs1, Rs2, Imm);
     printf("\n");
 
     /* Add branch instructions here */
@@ -341,7 +342,7 @@ int b_process(char* i_) {
     /* This is an Add Immediate Instruciton */
     if (!strcmp(d_opcode, "1100011")) {
         printf("--- This is an BNE instruction. \n");
-        BNE(Rs1, Rs2, Imm, Funct3);
+        BNE(Rs1, Rs2, Imm);
         return 0;
     }
 
