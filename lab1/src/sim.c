@@ -88,12 +88,11 @@ int r_process(char* i_) {
     int Funct3 = bchar_to_int(funct3);
     int Funct7 = bchar_to_int(funct7);
     printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Rs2, Rd);
+        d_opcode, Rs1, Rs2, Rd, Funct3);
     printf("\n");
 
-    if (!strcmp(d_opcode, "0110011"))
+    if (!strcmp(d_opcode, "0110011")) //handle r types with opcode 51
     {
-        //handle r types with opcode 51
         switch (Funct3)
         {
         case 0:
@@ -159,69 +158,6 @@ int r_process(char* i_) {
 
         return 0;
     }
-    /*
-    if(!strcmp(d_opcode,"0110011"))
-    {
-      //ADD and SUB both funct3 "000"
-      if(!strcmp(funct3, "000"))
-      {
-        if(!strcmp(funct7,"0000000"))
-        {
-          printf("--- This is an ADD instruction. \n");
-          ADD(Rd, Rs1, Rs2);
-        }
-        else if(!strcmp(funct7,"0100000"))
-        {
-          printf("--- This is a SUB instruction. \n");
-          SUB(Rd, Rs1, Rs2);
-        }
-      }
-      else if(!strcmp(funct3,"001"))
-      {
-        printf("--- This is an SLL instruction. \n");
-        SLL(Rd, Rs1, Rs2);
-      }
-      else if(!strcmp(funct3,"010"))
-      {
-        printf("--- This is an SLT instruction. \n");
-        SLT(Rd, Rs1, Rs2);
-      }
-      else if(!strcmp(funct3,"011"))
-      {
-        printf("--- This is an SLTU instruction. \n");
-        SLTU(Rd, Rs1, Rs2);
-      }
-      else if(!strcmp(funct3,"100"))
-      {
-        printf("--- This is an XOR instruction. \n");
-        XOR(Rd, Rs1, Rs2);
-      }
-      else if(!strcmp(funct3,"101"))
-      {
-        if(!strcmp(funct7,"0000000"))
-        {
-          printf("--- This is an SRL instruction. \n");
-          SRL(Rd, Rs1, Rs2);
-        }
-        else if(!strcmp(funct7,"0100000"))
-        {
-          printf("--- This is a SRA instruction. \n");
-          SRA(Rd, Rs1, Rs2);
-        }
-      }
-      else if(!strcmp(funct3,"110"))
-      {
-        printf("--- This is a OR instruction. \n");
-        OR(Rd, Rs1, Rs2);
-      }
-      else if(!strcmp(funct3,"111"))
-      {
-        printf("--- This is a AND instruction. \n");
-        AND(Rd, Rs1, Rs2);
-      }
-
-      return 0;
-    }*/
 
     return 1;
 }
@@ -256,26 +192,42 @@ int i_process(char* i_) {
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
     printf("Opcode = %s\n Rs1 = %d\n Imm = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Imm, Rd);
+        d_opcode, Rs1, Imm, Rd, Funct3);
     printf("\n");
 
 
     if (!strcmp(d_opcode, "0000011"))
     {
-        if (!strcmp(funct3, "000"))
+        switch (Funct3)
         {
+        case 0:
             printf("--- This is an LB instruction. \n");
             LB(Rd, Imm, Rs1);
-        }
-        if (!strcmp(funct3, "001"))
-        {
+            break;
+
+        case 1:
             printf("--- This is an LH instruction. \n");
             LH(Rd, Imm, Rs1);
-        }
-        if (!strcmp(funct3, "010"))
-        {
+            break;
+
+        case 2:
             printf("--- This is an LW instruction. \n");
             LW(Rd, Imm, Rs1);
+            break;
+
+        case 4:
+            printf("--- This is an LBU instruction. \n");
+            LBU(Rd, Imm, Rs1);
+            break;
+
+        case 5:
+            printf("--- This is an LHU instruction. \n");
+            LHU(Rd, Imm, Rs1);
+            break;
+
+        default:
+            return 1;
+            break;
         }
         return 0;
     }
@@ -334,7 +286,7 @@ int b_process(char* i_) {
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
     printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Imm = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Rs2, Imm);
+        d_opcode, Rs1, Rs2, Imm, Funct3);
     printf("\n");
 
     /* Add branch instructions here */
@@ -350,11 +302,68 @@ int b_process(char* i_) {
 
 }
 
-int s_process(char* i_) {
+/* This function execute S type instructions */
+int s_process(char* i_)
+{
+    char d_opcode[8];
+    d_opcode[0] = i_[31 - 6];
+    d_opcode[1] = i_[31 - 5];
+    d_opcode[2] = i_[31 - 4];
+    d_opcode[3] = i_[31 - 3];
+    d_opcode[4] = i_[31 - 2];
+    d_opcode[5] = i_[31 - 1];
+    d_opcode[6] = i_[31 - 0];
+    d_opcode[7] = '\0';
+    char rs1[6]; rs1[5] = '\0';
+    char rs2[6]; rs2[5] = '\0';
+    char funct3[4]; funct3[3] = '\0';
+    char imm[13]; imm[12] = '\0';
+    for (int i = 0; i < 5; i++)
+    {
+        rs1[i] = i_[31 - 19 + i];
+        rs2[i] = i_[31 - 24 + i];
+    }
+    //TODO: look back at this!!! Could be wrong and cause all SORTS of problems!
+    for (int i = 0; i < 7; i++) { //bits 11:5
+        imm[i + 5] = i_[31 - 31 + i]; //msb 7 bits
+    }
+    for (int i = 0; i < 5; i++) { //bits 0:4
+        imm[i] = i_[31 - 11 + i]; //lsb 5 bits
+    }
+    for (int i = 0; i < 3; i++) {
+        funct3[i] = i_[31 - 14 + i];
+    }
+    int Rs1 = bchar_to_int(rs1);
+    int Rs2 = bchar_to_int(rs2);
+    int Funct3 = bchar_to_int(funct3);
+    int Imm = bchar_to_int(imm);
+    printf("Opcode = %s\n Rs2 = %d\n Imm = %d\n Rs1 = %d\n Funct3 = %d\n\n",
+        d_opcode, Rs2, Imm, Rs1, Funct3);
+    printf("\n");
 
-    /* This function execute S type instructions */
+    switch (Funct3)
+    {
+    case 0:
+        printf("--- This is an SB instruction. \n");
+        SB(Rs2, Imm, Rs1);
+        break;
 
-    /* Add store instructions here */
+    case 1:
+        printf("--- This is an SH instruction. \n");
+        SH(Rs2, Imm, Rs1);
+        break;
+
+    case 2:
+        printf("--- This is an SW instruction. \n");
+        SW(Rs2, Imm, Rs1);
+        break;
+
+    default:
+        return 1;
+        break;
+
+        return 0;
+    }
 
     return 1;
 
@@ -395,9 +404,10 @@ int decode_and_execute(char* i_) {
        CPU_State (NEXT_STATE)
     */
 
-    if ((i_[25] == '0') && (i_[26] == '0') &&
-        (i_[27] == '1') && (i_[28] == '0') &&
-        (i_[29] == '0') && (i_[30] == '1') && (i_[31] == '1')) {
+    //opcode 3 and 19
+    if (((i_[25] == '0') && (i_[26] == '0') &&
+        /*(i_[27] == '1') &&*/ (i_[28] == '0') && //dont check bit 27 to include opcode 3 and 19
+        (i_[29] == '0') && (i_[30] == '1') && (i_[31] == '1'))) {
         printf("- This is an Immediate Type Instruction. \n");
         i_process(i_);
     }
