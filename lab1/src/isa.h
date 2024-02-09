@@ -149,9 +149,10 @@ int SRLI(int Rd, int Rs1, int Imm)
 }
 int SRAI(int Rd, int Rs1, int Imm)
 {
-    int cur = 0;
-    cur = CURRENT_STATE.REGS[Rs1] >>= (31 & SIGNEXT(Imm, 12));
-    NEXT_STATE.REGS[Rd] = cur;
+    int cur = CURRENT_STATE.REGS[Rs1];
+    int shift = (31 & SIGNEXT(Imm, 12));
+    cur = cur >> shift;
+    NEXT_STATE.REGS[Rd] = SIGNEXT(cur, 32 - shift);
     return 0;
 }
 int ORI(int Rd, int Rs1, int Imm)
@@ -267,9 +268,10 @@ int SRL(int Rd, int Rs1, int Rs2)
 }
 int SRA(int Rd, int Rs1, int Rs2)
 {
-    int cur = 0;
-    cur = CURRENT_STATE.REGS[Rs1] >>= (31 & CURRENT_STATE.REGS[Rs2]);
-    NEXT_STATE.REGS[Rd] = cur;
+    int cur = CURRENT_STATE.REGS[Rs1];
+    int shift = (31 & CURRENT_STATE.REGS[Rs2]);
+    cur = cur >> shift;
+    NEXT_STATE.REGS[Rd] = SIGNEXT(cur, 32 - shift);
     return 0;
 }
 int OR(int Rd, int Rs1, int Rs2)
