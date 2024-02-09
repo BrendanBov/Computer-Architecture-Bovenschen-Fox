@@ -27,7 +27,8 @@
 //   if no, just give number
 //   if yes, sign extend (e.g., 0x80_0000 -> 0xFF80_0000)
 //
-#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v)
+//#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v)
+#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v & ((1 << (sb - 1)) - 1))
 
 int ADD(int Rd, int Rs1, int Rs2) {
     int cur = 0;
@@ -40,7 +41,6 @@ int ADDI(int Rd, int Rs1, int Imm)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
-    //printf("imm = %08x\n signext = %08x\n same = %d\n", Imm, SIGNEXT(Imm,12), Imm == SIGNEXT(Imm,12));
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
@@ -58,18 +58,18 @@ int BNE(int Rs1, int Rs2, int Imm)
 // I Instructions
 //
 
-// int LB (char* i_);
 //Imm acts as effective address
 int LB(int Rd, int Imm, int Rs1)
 {
-    int mask = 0xfffffffc; //11...100, each bit in address represents a byte in memory
+    int mask = 0x3; //000...0011, each bit in address represents a byte in memory
     int effAdr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12); //get val at rs1 + imm sign extended
-    int alignedAdr = effAdr & mask; //align address with word using mask
+    int alignedAdr = effAdr & ~mask; //align address with word using mask
     int read = mem_read_32(alignedAdr); //read word from memory at aligned adr
-    int offset = effAdr & ~mask; //offset is last 2 bits of effAdr, aka byte address
+    //printf("alignedAdr = %x mem at alignedAdr = %x\n",alignedAdr,read);
+    int offset = effAdr & mask; //offset is last 2 bits of effAdr, aka byte address
 
-    //shift bytes in place by shifting 8 bits, sign extend from byte 0
-    NEXT_STATE.REGS[Rd] = SIGNEXT(read >> 8 * offset, 8); //should be 8bits in signext maybe?
+    //shift bytes in place by shifting 8 bits, sign extend from bit 8
+    NEXT_STATE.REGS[Rd] = SIGNEXT(read >> 8 * offset, 8);
     return 0;
 }
 int LH(int Rd, int Imm, int Rs1)
@@ -171,7 +171,7 @@ int ANDI(int Rd, int Rs1, int Imm)
 }
 
 // U Instruction
-int AUIPC(int Rd, int UpImm) //this may be broken
+int AUIPC(int Rd, int UpImm)
 {
     int cur = UpImm << 12;
     NEXT_STATE.REGS[Rd] = cur + CURRENT_STATE.PC;
