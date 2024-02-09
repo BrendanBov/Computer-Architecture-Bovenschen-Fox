@@ -27,7 +27,7 @@
 //   if no, just give number
 //   if yes, sign extend (e.g., 0x80_0000 -> 0xFF80_0000)
 //
-#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb)) - 1) : v)
+#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v)
 
 int ADD(int Rd, int Rs1, int Rs2) {
     int cur = 0;
@@ -40,6 +40,7 @@ int ADDI(int Rd, int Rs1, int Imm)
 {
     int cur = 0;
     cur = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
+    //printf("imm = %08x\n signext = %08x\n same = %d\n", Imm, SIGNEXT(Imm,12), Imm == SIGNEXT(Imm,12));
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
@@ -170,7 +171,12 @@ int ANDI(int Rd, int Rs1, int Imm)
 
 // U Instruction
 int AUIPC(char* i_);
-int LUI(char* i_);
+int LUI(int Rd, int UpImm)
+{
+    int cur = UpImm << 12;
+    NEXT_STATE.REGS[Rd] = cur;
+    return 0;
+}
 
 // S Instruction
 int SB(int Rs2, int Imm, int Rs1)
@@ -187,6 +193,7 @@ int SB(int Rs2, int Imm, int Rs1)
     //just goofing around really
     write << offset * 8; //move mask and write by offset;
     maskRW << offset * 8;
+    //write low bits in read before masking for write
     mem_write_32(alignedAdr, write & (read & ~maskRW));
 
     return 0;

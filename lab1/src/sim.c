@@ -87,8 +87,8 @@ int r_process(char* i_) {
     int Rd = bchar_to_int(rd);
     int Funct3 = bchar_to_int(funct3);
     int Funct7 = bchar_to_int(funct7);
-    printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Rs2, Rd, Funct3);
+    printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Rd = %d\n Funct3 = %d\n Funct7 = %d\n",
+        d_opcode, Rs1, Rs2, Rd, Funct3, Funct7);
     printf("\n");
 
     if (!strcmp(d_opcode, "0110011")) //handle r types with opcode 51
@@ -176,6 +176,7 @@ int i_process(char* i_) {
     char rs1[6]; rs1[5] = '\0';
     char rd[6]; rd[5] = '\0';
     char funct3[4]; funct3[3] = '\0';
+    char funct7[8]; funct7[7] = '\0';
     char imm[13]; imm[12] = '\0';
     for (int i = 0; i < 5; i++) {
         rs1[i] = i_[31 - 19 + i];
@@ -184,15 +185,19 @@ int i_process(char* i_) {
     for (int i = 0; i < 12; i++) {
         imm[i] = i_[31 - 31 + i];
     }
+    for (int i = 0; i < 7; i++) {
+        funct7[i] = i_[31 - 31 + i];
+    }
     for (int i = 0; i < 3; i++) {
         funct3[i] = i_[31 - 14 + i];
     }
     int Rs1 = bchar_to_int(rs1);
     int Rd = bchar_to_int(rd);
     int Funct3 = bchar_to_int(funct3);
+    int Funct7 = bchar_to_int(funct7);
     int Imm = bchar_to_int(imm);
-    printf("Opcode = %s\n Rs1 = %d\n Imm = %d\n Rd = %d\n Funct3 = %d\n\n",
-        d_opcode, Rs1, Imm, Rd, Funct3);
+    printf("Opcode = %s\n Rs1 = %d\n Imm = %d\n Rd = %d\n Funct3 = %d\n Funct7 = %d\n",
+        d_opcode, Rs1, Imm, Rd, Funct3, Funct7);
     printf("\n");
 
 
@@ -232,11 +237,60 @@ int i_process(char* i_) {
         return 0;
     }
     /* This is an Add Immediate Instruciton */
-    else if (!strcmp(d_opcode, "0010011"))
+    else if (!strcmp(d_opcode, "0010011")) //opcode 19
     {
-        printf("--- This is an ADDI instruction. \n");
-        ADDI(Rd, Rs1, Imm);
-        return 0;
+        switch (Funct3)
+        {
+        case 0:
+            printf("--- This is an ADDI instruction. \n");
+            ADDI(Rd, Rs1, Imm);
+            break;
+
+        case 1:
+            printf("--- This is an SLLI instruction. \n");
+            SLLI(Rd, Rs1, Imm);
+            break;
+
+        case 2:
+            printf("--- This is an SLTI instruction. \n");
+            SLTI(Rd, Rs1, Imm);
+            break;
+
+        case 3:
+            printf("--- This is an STLIU instruction. \n");
+            SLTIU(Rd, Rs1, Imm);
+            break;
+
+        case 4:
+            printf("--- This is an XORI instruction. \n");
+            XORI(Rd, Rs1, Imm);
+            break;
+
+        case 5:
+            if (Funct7 == 0) //funct7 = 0000000
+            {
+                printf("--- This is an SRLI instruction. \n");
+                SRLI(Rd, Rs1, Imm);
+            }
+            else if (Funct7 == 32) //funct7 = 0100000
+            {
+                printf("--- This is an SRAI instruction. \n");
+                SRAI(Rd, Rs1, Imm);
+            }
+            break;
+
+        case 6:
+            printf("--- This is an ORI instruction. \n");
+            ORI(Rd, Rs1, Imm);
+            break;
+
+        case 7:
+            printf("--- This is an ANDI instruction. \n");
+            ANDI(Rd, Rs1, Imm);
+            break;
+
+            return 0;
+        }
     }
 
     return 1;
@@ -285,13 +339,12 @@ int b_process(char* i_) {
     int Rs2 = bchar_to_int(rs2);
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
-    printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Imm = %d\n Funct3 = %d\n\n",
+    printf("Opcode = %s\n Rs1 = %d\n Rs2 = %d\n Imm = %d\n Funct3 = %d\n",
         d_opcode, Rs1, Rs2, Imm, Funct3);
     printf("\n");
 
     /* Add branch instructions here */
 
-    /* This is an Add Immediate Instruciton */
     if (!strcmp(d_opcode, "1100011")) {
         printf("--- This is an BNE instruction. \n");
         BNE(Rs1, Rs2, Imm);
@@ -337,7 +390,7 @@ int s_process(char* i_)
     int Rs2 = bchar_to_int(rs2);
     int Funct3 = bchar_to_int(funct3);
     int Imm = bchar_to_int(imm);
-    printf("Opcode = %s\n Rs2 = %d\n Imm = %d\n Rs1 = %d\n Funct3 = %d\n\n",
+    printf("Opcode = %s\n Rs2 = %d\n Imm = %d\n Rs1 = %d\n Funct3 = %d\n",
         d_opcode, Rs2, Imm, Rs1, Funct3);
     printf("\n");
 
@@ -382,8 +435,35 @@ int j_process(char* i_) {
 int u_process(char* i_) {
 
     /* This function execute U type instructions */
+    char d_opcode[8];
+    d_opcode[0] = i_[31 - 6];
+    d_opcode[1] = i_[31 - 5];
+    d_opcode[2] = i_[31 - 4];
+    d_opcode[3] = i_[31 - 3];
+    d_opcode[4] = i_[31 - 2];
+    d_opcode[5] = i_[31 - 1];
+    d_opcode[6] = i_[31 - 0];
+    d_opcode[7] = '\0';
+    char rd[6]; rd[5] = '\0';
+    char upimm[21]; upimm[20] = '\0';
+    for (int i = 0; i < 5; i++) {
+        rd[i] = i_[31 - 11 + i];
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        upimm[i] = i_[31 - 31 + i];
+    }
+    int UpImm = bchar_to_int(upimm);
+    int Rd = bchar_to_int(rd);
+    printf("Opcode = %s\n Rd = %d\n UpImm = %x\n",
+        d_opcode, Rd, UpImm);
+    printf("\n");
 
-    /* Add U instructions here */
+    if (!strcmp(d_opcode, "0110111")) { //opcode 55
+        printf("--- This is an LUI instruction. \n");
+        LUI(Rd, UpImm);
+        return 0;
+    }
 
     return 1;
 
@@ -435,7 +515,7 @@ int decode_and_execute(char* i_) {
         printf("- This is a J Type Instruction. \n");
         j_process(i_);
     }
-    if ((i_[25] == '0') && (i_[26] == '0') &&
+    if ((i_[25] == '0') && /*(i_[26] == '0') &&*/ //ignore to handle addui and lui
         (i_[27] == '1') && (i_[28] == '0') &&
         (i_[29] == '1') && (i_[30] == '1') && (i_[31] == '1')) {
         printf("- This is a U Type Instruction. \n");
@@ -466,11 +546,12 @@ void process_instruction() {
        access memory.
     */
 
-    unsigned int inst_word = mem_read_32(CURRENT_STATE.PC);
-    printf("The instruction is: %x \n", inst_word);
-    printf("33222222222211111111110000000000\n");
-    printf("10987654321098765432109876543210\n");
     printf("--------------------------------\n");
+    unsigned int inst_word = mem_read_32(CURRENT_STATE.PC);
+    printf("\nThe instruction is: %x \n", inst_word);
+    //printf("33222222222211111111110000000000\n");
+    //printf("10987654321098765432109876543210\n");
+    //printf("--------------------------------\n");
     printf("%s \n", byte_to_binary32(inst_word));
     printf("\n");
     decode_and_execute(byte_to_binary32(inst_word));
