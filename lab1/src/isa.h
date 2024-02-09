@@ -5,7 +5,7 @@
 /*   ECEN 4243                                                 */
 /*   Oklahoma State University                                 */
 /*                                                             */
-/***************************************************************/
+/************************************ ***************************/
 
 #ifndef _SIM_ISA_H_
 #define _SIM_ISA_H_
@@ -74,11 +74,11 @@ int LB(int Rd, int Imm, int Rs1)
 }
 int LH(int Rd, int Imm, int Rs1)
 {
-    int mask = 0xfffffffc;
+    int mask = 0x3;
     int effAdr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
-    int alignedAdr = effAdr & mask;
+    int alignedAdr = effAdr & ~mask;
     int read = mem_read_32(alignedAdr);
-    int offset = effAdr & ~mask;
+    int offset = effAdr & mask;
 
     NEXT_STATE.REGS[Rd] = SIGNEXT(read >> 8 * offset, 16);
     return 0;
@@ -91,22 +91,22 @@ int LW(int Rd, int Imm, int Rs1)
 }
 int LBU(int Rd, int Imm, int Rs1)
 {
-    int mask = 0xfffffffc;
+    int mask = 0x3;
     int effAdr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
-    int alignedAdr = effAdr & mask;
+    int alignedAdr = effAdr & ~mask;
     int read = mem_read_32(alignedAdr);
-    int offset = effAdr & ~mask;
+    int offset = effAdr & mask;
     int maskU = 0xff; //makes all bits above bit 8 zeros
     NEXT_STATE.REGS[Rd] = maskU & (read >> 8 * offset);
     return 0;
 }
 int LHU(int Rd, int Imm, int Rs1)
 {
-    int mask = 0xfffffffc;
+    int mask = 0x3;
     int effAdr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
-    int alignedAdr = effAdr & mask;
+    int alignedAdr = effAdr & ~mask;
     int read = mem_read_32(alignedAdr);
-    int offset = effAdr & ~mask;
+    int offset = effAdr & mask;
     int maskU = 0xffff; //makes all bits above bit 16 zeros
 
     NEXT_STATE.REGS[Rd] = maskU & (read >> 8 * offset);
@@ -194,13 +194,12 @@ int SB(int Rs2, int Imm, int Rs1)
     int offset = effAdr & mask;
     int maskRW = 0xff; //mask read write
     int write = CURRENT_STATE.REGS[Rs2] & maskRW; //only lower 8 bits 
+    write = write << (offset * 8); //move mask and write by offset; 
+    maskRW = maskRW << (offset * 8);
 
-    //yeah, i might've made a mess of things right here...
-    //just goofing around really
-    write << offset * 8; //move mask and write by offset;
-    maskRW << offset * 8;
+    int cutData = read & ~maskRW;
     //write low bits in read before masking for write
-    mem_write_32(alignedAdr, write & (read & ~maskRW));
+    mem_write_32(alignedAdr, (cutData | write));
 
     return 0;
 }
@@ -213,16 +212,19 @@ int SH(int Rs2, int Imm, int Rs1)
     int offset = effAdr & mask;
     int maskRW = 0xffff; //mask read write
     int write = CURRENT_STATE.REGS[Rs2] & maskRW; //only lower 8 bits 
+    write = write << (offset * 8); //move mask and write by offset; 
+    maskRW = maskRW << (offset * 8);
 
-    write << offset * 8; //move mask and write by offset;
-    maskRW << offset * 8;
-    mem_write_32(alignedAdr, write & (read & ~maskRW));
+    int cutData = read & ~maskRW;
+    //write low bits in read before masking for write
+    mem_write_32(alignedAdr, (cutData | write));
     return 0;
 }
 int SW(int Rs2, int Imm, int Rs1)
 {
+    //printf("Imm = %x\n", Imm);
     int adr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
-    mem_write_32(adr, Rs2);
+    mem_write_32(adr, CURRENT_STATE.REGS[Rs2]);
 
     return 0;
 }
@@ -295,11 +297,46 @@ int AND(int Rd, int Rs1, int Rs2)
 }
 
 // B instructions
-int BEQ(char* i_);
-int BLT(char* i_);
-int BGE(char* i_);
-int BLTU(char* i_);
-int BGEU(char* i_);
+int BEQ(int Rs1, int Rs2, int Imm)
+{
+    int cur = 0;
+    Imm = Imm << 1;
+    if (CURRENT_STATE.REGS[Rs1] == CURRENT_STATE.REGS[Rs2])
+        NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
+    return 0;
+}
+int BLT(int Rs1, int Rs2, int Imm) //doesnt work! :()
+{
+    int cur = 0;
+    Imm = Imm << 1;
+    if (CURRENT_STATE.REGS[Rs1] < CURRENT_STATE.REGS[Rs2])
+        NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
+    return 0;
+}
+int BGE(int Rs1, int Rs2, int Imm) //doesnt work! :()
+{
+    int cur = 0;
+    Imm = Imm << 1;
+    if (CURRENT_STATE.REGS[Rs1] >= CURRENT_STATE.REGS[Rs2])
+        NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
+    return 0;
+}
+int BLTU(int Rs1, int Rs2, int Imm)
+{
+    int cur = 0;
+    Imm = Imm << 1;
+    if ((unsigned int)CURRENT_STATE.REGS[Rs1] < (unsigned int)CURRENT_STATE.REGS[Rs2])
+        NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
+    return 0;
+}
+int BGEU(int Rs1, int Rs2, int Imm)
+{
+    int cur = 0;
+    Imm = Imm << 1;
+    if ((unsigned int)CURRENT_STATE.REGS[Rs1] >= (unsigned int)CURRENT_STATE.REGS[Rs2])
+        NEXT_STATE.PC = (CURRENT_STATE.PC - 4) + (SIGNEXT(Imm, 13));
+    return 0;
+}
 
 // I instruction
 int JALR(char* i_);

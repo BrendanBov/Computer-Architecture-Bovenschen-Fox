@@ -345,10 +345,40 @@ int b_process(char* i_) {
 
     /* Add branch instructions here */
 
-    if (!strcmp(d_opcode, "1100011")) {
-        printf("--- This is an BNE instruction. \n");
-        BNE(Rs1, Rs2, Imm);
-        return 0;
+    if (!strcmp(d_opcode, "1100011")) { //opcode 99
+
+        switch (Funct3) {
+        case 0:
+            printf("--- This is a BEQ instruction. \n");
+            BEQ(Rs1, Rs2, Imm);
+            break;
+
+        case 1:
+            printf("--- This is a BNE instruction. \n");
+            BNE(Rs1, Rs2, Imm);
+            break;
+
+        case 4:
+            printf("--- This is a BLT instruction. \n");
+            BLT(Rs1, Rs2, Imm);
+            break;
+
+        case 5:
+            printf("--- This is a BGE instruction. \n");
+            BGE(Rs1, Rs2, Imm);
+            break;
+
+        case 6:
+            printf("--- This is a BLTU instruction. \n");
+            BLTU(Rs1, Rs2, Imm);
+            break;
+
+        case 7:
+            printf("--- This is a BGEU instruction. \n");
+            BGEU(Rs1, Rs2, Imm);
+            break;
+            return 0;
+        }
     }
 
     return 1;
@@ -378,10 +408,10 @@ int s_process(char* i_)
     }
     //TODO: look back at this!!! Could be wrong and cause all SORTS of problems!
     for (int i = 0; i < 7; i++) { //bits 11:5
-        imm[i + 5] = i_[31 - 31 + i]; //msb 7 bits
+        imm[i] = i_[31 - 31 + i]; //msb 7 bits
     }
     for (int i = 0; i < 5; i++) { //bits 0:4
-        imm[i] = i_[31 - 11 + i]; //lsb 5 bits
+        imm[i + 7] = i_[31 - 11 + i]; //lsb 5 bits
     }
     for (int i = 0; i < 3; i++) {
         funct3[i] = i_[31 - 14 + i];
@@ -405,7 +435,6 @@ int s_process(char* i_)
         printf("--- This is an SH instruction. \n");
         SH(Rs2, Imm, Rs1);
         break;
-
     case 2:
         printf("--- This is an SW instruction. \n");
         SW(Rs2, Imm, Rs1);
