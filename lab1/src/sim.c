@@ -464,6 +464,11 @@ int u_process(char* i_) {
         LUI(Rd, UpImm);
         return 0;
     }
+    else if (!strcmp(d_opcode, "0010111")) { //opcode 23
+        printf("--- This is an AUIPC instruction. \n");
+        AUIPC(Rd, UpImm);
+        return 0;
+    }
 
     return 1;
 

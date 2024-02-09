@@ -171,7 +171,12 @@ int ANDI(int Rd, int Rs1, int Imm)
 }
 
 // U Instruction
-int AUIPC(char* i_);
+int AUIPC(int Rd, int UpImm) //this may be broken
+{
+    int cur = UpImm << 12;
+    NEXT_STATE.REGS[Rd] = cur + CURRENT_STATE.PC;
+    return 0;
+}
 int LUI(int Rd, int UpImm)
 {
     int cur = UpImm << 12;
