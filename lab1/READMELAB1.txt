@@ -1,0 +1,1 @@
+use the "runall" executable to simulate each memfile and see which have passed and failed
