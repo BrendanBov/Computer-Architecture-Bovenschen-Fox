@@ -14,21 +14,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "shell.h"
-
-//STUFF TO ASK
-//sb doesnt seem consistent, i might be misunderstanding the lengtht of imm for I types
-//How do I know if this works? I can run an individual memfile and it haults, but is there a value i should be looking for?
-//What are we doing when generating the effective address in the load assignment? does imm have to be inbetween 0 - 3?
-//LB rd imm(rs1)
-//can we just assume our address is aligned for read word?
-
 //
 // MACRO: Check sign bit (sb) of (v) to see if negative
 //   if no, just give number
 //   if yes, sign extend (e.g., 0x80_0000 -> 0xFF80_0000)
 //
-//#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v)
-#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v & ((1 << (sb - 1)) - 1))
+#define SIGNEXT(v, sb) ( v & (1 << (sb - 1)) ? ~((1 << (sb - 1)) - 1) | v : v & ((1 << (sb - 1)) - 1)  ) 
 
 int ADD(int Rd, int Rs1, int Rs2) {
     int cur = 0;
@@ -65,7 +56,6 @@ int LB(int Rd, int Imm, int Rs1)
     int effAdr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12); //get val at rs1 + imm sign extended
     int alignedAdr = effAdr & ~mask; //align address with word using mask
     int read = mem_read_32(alignedAdr); //read word from memory at aligned adr
-    //printf("alignedAdr = %x mem at alignedAdr = %x\n",alignedAdr,read);
     int offset = effAdr & mask; //offset is last 2 bits of effAdr, aka byte address
 
     //shift bytes in place by shifting 8 bits, sign extend from bit 8
@@ -223,7 +213,6 @@ int SH(int Rs2, int Imm, int Rs1)
 }
 int SW(int Rs2, int Imm, int Rs1)
 {
-    //printf("Imm = %x\n", Imm);
     int adr = CURRENT_STATE.REGS[Rs1] + SIGNEXT(Imm, 12);
     mem_write_32(adr, CURRENT_STATE.REGS[Rs2]);
 
@@ -249,9 +238,7 @@ int SLL(int Rd, int Rs1, int Rs2) //31 and mask used to mask outside of last 5 b
 int SLT(int Rd, int Rs1, int Rs2)
 {
     int cur = 0;
-
     cur = (signed int)CURRENT_STATE.REGS[Rs1] < (signed int)CURRENT_STATE.REGS[Rs2];
-    printf("%d < %d, %d", CURRENT_STATE.REGS[Rs1], CURRENT_STATE.REGS[Rs2], cur);
     NEXT_STATE.REGS[Rd] = cur;
     return 0;
 }
@@ -344,14 +331,10 @@ int BGEU(int Rs1, int Rs2, int Imm)
 // I instruction
 int JALR(int Rd, int Rs1, int Imm)
 {
-    //might need to make current state regs unsigned?
     int rd1 = CURRENT_STATE.REGS[Rs1];
     int immSE = SIGNEXT(Imm, 12);
-    printf("rd1 = %x\n", rd1);
-    printf("immSE = %x\n", immSE);
     int adr = rd1 + immSE;
     NEXT_STATE.PC = adr - 4;
-    printf("adr = %x\n", adr);
     NEXT_STATE.REGS[Rd] = CURRENT_STATE.PC + 4;
     return 0;
 }
@@ -359,9 +342,7 @@ int JALR(int Rd, int Rs1, int Imm)
 // J instruction
 int JAL(int Rd, int Imm)
 {
-    //printf("jump to %x\n", 0x80000000 + Imm);
-
-    NEXT_STATE.PC = 0x80000000 + Imm - 4; //go back 1 address, start new address from PC 0
+    NEXT_STATE.PC = CURRENT_STATE.PC + SIGNEXT(Imm, 12) - 4; //go back 1 address, start new address from PC 0
     NEXT_STATE.REGS[Rd] = CURRENT_STATE.PC + 4;
     return 0;
 }

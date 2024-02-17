@@ -33,7 +33,7 @@ int parse_output() {
     }
 
     if (pclose(fp)) {
-        printf("Command not found or exited with error status\n");
+        printf("exited with error\n");
         return -1;
     }
 
@@ -43,6 +43,6 @@ int parse_output() {
 int main()
 {
     parse_output();
-    printf("\n\nTests Failed : %d\n\n", testsFailed);
+    //printf("\n\nTests Failed : %d\n\n", testsFailed);
     return 0;
 }

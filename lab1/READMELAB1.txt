@@ -1,1 +1,2 @@
-use the "runall" executable to simulate each memfile and see which have passed and failed
+use the "runall" executable to simulate each memfile
+NOTE: 'g' must still be used to run each and 'q' to exit
