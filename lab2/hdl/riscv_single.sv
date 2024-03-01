@@ -42,7 +42,7 @@ module testbench();
 	string memfilename;
         //memfilename = {"../riscvtest/riscvtest.memfile"};
         //memfilename = {"../othertests/lui.memfile"};
-        memfilename = {"../lab1tests/jalr.memfile"};
+        memfilename = {"../lab1tests/bgeu.memfile"};
         $readmemh(memfilename, dut.imem.RAM);
      end
 
@@ -79,7 +79,8 @@ module riscvsingle (input  logic        clk, reset,
 		    input  logic [31:0] Instr,
 		    output logic 	MemWrite,
 		    output logic [31:0] ALUResult, WriteData,
-		    input  logic [31:0] ReadData);
+		    input  logic [31:0] ReadData,
+        output logic [3:0]  ByteMask);
    
    logic 				ALUSrc, RegWrite, Jump, Zero, Negative, Overflow; //negative and overflow added by us
    logic [1:0] 				ResultSrc;
@@ -96,7 +97,7 @@ module riscvsingle (input  logic        clk, reset,
 		ALUSrc, RegWrite,
 		ImmSrc, ALUControl,
 		Zero, Negative, Overflow, PC, Instr,
-		ALUResult, WriteData, ReadData,AddPC);
+		ALUResult, WriteData, ReadData,AddPC,ByteMask);
    
 endmodule // riscvsingle
 
@@ -123,8 +124,8 @@ module controller (input  logic [6:0] op,
     3'b001: BranchControl = ~Zero;                    //bne
     3'b100: BranchControl = ~(Negative == Overflow);  //blt
     3'b101: BranchControl = Negative == Overflow;     //bge
-    3'b110: BranchControl = (Negative ^ Overflow);    //bltu
-    3'b111: BranchControl = ~(Negative ^ Overflow);   //bgeu
+    3'b110: BranchControl = (Negative | Overflow);    //bltu
+    3'b111: BranchControl = (~Negative & ~Overflow) | Zero;   //bgeu
     default: BranchControl = 1'b0;
     endcase
    
@@ -211,13 +212,16 @@ module datapath (input  logic        clk, reset,
 		 input  logic [31:0] Instr,
 		 output logic [31:0] ALUResult, WriteData,
 		 input  logic [31:0] ReadData,
-     input  logic        AddPC);
+     input  logic        AddPC,
+     output logic [3:0]  ByteMask);
    
    logic [31:0] 		     PCNext, PCPlus4, PCTarget, PCTargetSrcA; //added by us
    logic [31:0] 		     ImmExt;
    logic [31:0]          RD1;
    logic [31:0] 		     SrcA, SrcB;
    logic [31:0] 		     Result;
+   logic [31:0]          ToWrite; //added by us
+   logic [31:0]          FromRead; //added by us
    
    // next PC logic
    flopr #(32) pcreg (clk, reset, PCNext, PC);
@@ -227,13 +231,16 @@ module datapath (input  logic        clk, reset,
    mux2 #(32)  pctargetmux(PC, SrcA, ALUSrc, PCTargetSrcA); //added by us
    // register file logic
    regfile  rf (clk, RegWrite, Instr[19:15], Instr[24:20],
-	       Instr[11:7], Result, RD1, WriteData);
+	       Instr[11:7], Result, RD1, ToWrite);
    extend  ext (Instr[31:7], ImmSrc, ImmExt);
    // ALU logic
    mux2 #(32)  srcamux(RD1, PC, AddPC, SrcA); //added by us
-   mux2 #(32)  srcbmux (WriteData, ImmExt, ALUSrc, SrcB);
+   mux2 #(32)  srcbmux (ToWrite, ImmExt, ALUSrc, SrcB);
    alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero, Negative, Overflow);
-   mux3 #(32) resultmux (ALUResult, ReadData, PCPlus4,ResultSrc, Result);
+   mux3 #(32) resultmux (ALUResult, FromRead, PCPlus4,ResultSrc, Result);
+   // Read/WriteLogic
+   subwordwrite sww(ToWrite,Instr[13:12],ALUResult[1:0],WriteData,ByteMask); //added by us
+   subwordread swr(ReadData,Instr[14:12],ALUResult[1:0],FromRead);  //added by us
 
 endmodule // datapath
 
@@ -310,12 +317,13 @@ module top (input  logic        clk, reset,
 	    output logic 	MemWrite);
    
    logic [31:0] 		PC, Instr, ReadData;
+   logic [3:0]      ByteMask; //added by us
    
    // instantiate processor and memories
    riscvsingle rv32single (clk, reset, PC, Instr, MemWrite, DataAdr,
-			   WriteData, ReadData);
+			   WriteData, ReadData,ByteMask);
    imem imem (PC, Instr);
-   dmem dmem (clk, MemWrite, DataAdr, WriteData, ReadData);
+   dmem dmem (clk, MemWrite, DataAdr, WriteData, ByteMask, ReadData);
    
 endmodule // top
 
@@ -323,7 +331,7 @@ module imem (input  logic [31:0] a,
 	     output logic [31:0] rd);
    
    //logic [31:0] 		 RAM[63:0];
-   logic [31:0] 		 RAM[1023:0];
+   logic [31:0] 		 RAM[2047:0];
    
    assign rd = RAM[a[31:2]]; // word aligned
    
@@ -331,15 +339,80 @@ endmodule // imem
 
 module dmem (input  logic        clk, we,
 	     input  logic [31:0] a, wd,
+       input  logic [3:0] ByteMask, //added by us
 	     output logic [31:0] rd);
    
    logic [31:0] 		 RAM[255:0];
+   logic [31:0]      BitMask; //added by us
+
+   assign BitMask = {{8{ByteMask[3]}},{8{ByteMask[2]}},{8{ByteMask[1]}},{8{ByteMask[0]}}};
    
    assign rd = RAM[a[31:2]]; // word aligned
-   always_ff @(posedge clk)
-     if (we) RAM[a[31:2]] <= wd;
+   /*always_ff @(posedge clk)
+     if (we) RAM[a[31:2]] <= wd;*/
+    always_ff @(posedge clk)
+      if (we) RAM[a[31:2]] <= (rd & ~BitMask) | wd;
    
 endmodule // dmem
+
+module subwordwrite(input   logic [31:0]  ToWrite,  //added by us
+                    input   logic [1:0]   Funct3_2, ByteAdr,
+                    output  logic [31:0]  WriteData,
+                    output  logic [3:0]   ByteMask);
+    
+    always_comb begin
+      case(Funct3_2)
+        2'b00: WriteData = {4{ToWrite[7:0]}};
+        2'b01: WriteData = {2{ToWrite[15:0]}};
+        2'b10: WriteData = ToWrite;
+        default: WriteData = ToWrite;
+      endcase
+
+      case({Funct3_2,ByteAdr})
+        4'b00_00: ByteMask = 4'b0001;
+        4'b00_01: ByteMask = 4'b0010;
+        4'b00_10: ByteMask = 4'b0100;
+        4'b00_11: ByteMask = 4'b1000;
+        4'b01_0x: ByteMask = 4'b0011;
+        4'b01_1x: ByteMask = 4'b1100;
+        4'b10_xx: ByteMask = 4'b1111;
+        default:  ByteMask = 4'b1111;
+      endcase
+    end
+                
+endmodule
+
+module subwordread(input  logic [31:0]  ReadData, //added by us
+                   input  logic [2:0]   Funct3, 
+                   input  logic [1:0]   ByteAdr,
+                   output logic [31:0]  FromRead);
+              
+    logic [7:0]   Byte;
+    logic [15:0]  Halfword;
+    logic [31:0]  Word;
+
+    always_comb begin
+      case(ByteAdr)
+      2'b00: Byte = ReadData[7:0];
+      2'b01: Byte = ReadData[15:8];
+      2'b10: Byte = ReadData[23:16];
+      2'b11: Byte = ReadData[31:24];
+      default: Byte = 8'hxx;
+      endcase
+      Halfword = (ByteAdr[1]) ? ReadData[31:16] : ReadData[15:0];
+      Word = ReadData;
+
+      case(Funct3)
+      3'b000: FromRead = {{24{Byte[7]}},Byte};          //lb
+      3'b100: FromRead = {{24{1'b0}},Byte};             //lbu
+      3'b001: FromRead = {{16{Halfword[15]}},Halfword}; //lh
+      3'b101: FromRead = {{16{1'b0}},Halfword};         //lhu
+      3'b010: FromRead = Word;                          //lw
+      default: FromRead = 32'hxxxxxxxx;
+      endcase
+    end
+
+endmodule
 
 module alu (input  logic [31:0] a, b,
             input  logic [3:0] 	alucontrol,
