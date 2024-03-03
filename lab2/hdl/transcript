@@ -18,7 +18,7 @@
 # ** Warning: (vlib-34) Library already exists at "work".
 # Errors: 0, Warnings: 1
 # Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 00:11:05 on Mar 01,2024
+# Start time: 15:43:20 on Mar 01,2024
 # vlog -reportprogress 300 riscv_single.sv 
 # -- Compiling module testbench
 # -- Compiling module riscvsingle
@@ -43,10 +43,10 @@
 # Top level modules:
 # 	testbench
 # 	flopenr
-# End time: 00:11:05 on Mar 01,2024, Elapsed time: 0:00:00
+# End time: 15:43:20 on Mar 01,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -debugdb -voptargs="+acc" work.testbench 
-# Start time: 00:11:05 on Mar 01,2024
+# Start time: 15:43:21 on Mar 01,2024
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Note: (vopt-4301) Memory core inferred for signal 'RAM' width=32, depth=256, type=RAM at location riscv_single.sv:345
@@ -73,17 +73,14 @@
 # ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: brend  Hostname: LAPTOP-E202R8E9  ProcessID: 19392
-#           Attempting to use alternate WLF file "./wlft88jbt9".
+#           Attempting to use alternate WLF file "./wlftkzgc3a".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft88jbt9
+#           Using alternate file: ./wlftkzgc3a
+# Simulation failed
+# ** Note: $stop    : riscv_single.sv(72)
+#    Time: 2365 ns  Iteration: 1  Instance: /testbench
+# Break in Module testbench at riscv_single.sv line 72
 # Debug data file does not match loaded design.
 # Debug data file does not match loaded design.
-# ** Error: Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-# Error in macro ./riscv_single.do line 87
-# Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-#     while executing
-# "add schematic -full sim:/testbench/dut/rv32single"
-# End time: 00:15:27 on Mar 01,2024, Elapsed time: 0:04:22
-# Errors: 2, Warnings: 2
+# End time: 17:01:38 on Mar 01,2024, Elapsed time: 1:18:17
+# Errors: 1, Warnings: 2

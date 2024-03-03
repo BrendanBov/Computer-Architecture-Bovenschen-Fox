@@ -40,9 +40,10 @@ module testbench();
    initial
      begin
 	string memfilename;
-        //memfilename = {"../riscvtest/riscvtest.memfile"};
+        memfilename = {"../riscvtest/riscvtest.memfile"};
+        //memfilename = {"../riscvtest/fib.memfile"};
         //memfilename = {"../othertests/lui.memfile"};
-        memfilename = {"../lab1tests/bgeu.memfile"};
+        //memfilename = {"../lab1tests/bgeu.memfile"};
         $readmemh(memfilename, dut.imem.RAM);
      end
 
@@ -89,14 +90,14 @@ module riscvsingle (input  logic        clk, reset,
 
    logic              AddPC;
 
-   controller c (Instr[6:0], Instr[14:12], Instr[30], Zero, Negative, Overflow,
+   controller c (Instr[6:0], Instr[14:12], Instr[30], Zero, Negative, Overflow, Carry,
 		 ResultSrc, MemWrite, PCSrc,
 		 ALUSrc, RegWrite, Jump,
 		 ImmSrc, ALUControl,AddPC);
    datapath dp (clk, reset, ResultSrc, PCSrc,
 		ALUSrc, RegWrite,
 		ImmSrc, ALUControl,
-		Zero, Negative, Overflow, PC, Instr,
+		Zero, Negative, Overflow, Carry, PC, Instr,
 		ALUResult, WriteData, ReadData,AddPC,ByteMask);
    
 endmodule // riscvsingle
@@ -104,7 +105,7 @@ endmodule // riscvsingle
 module controller (input  logic [6:0] op,
 		   input  logic [2:0] funct3,
 		   input  logic       funct7b5,
-		   input  logic       Zero, Negative, Overflow,
+		   input  logic       Zero, Negative, Overflow, Carry,
 		   output logic [1:0] ResultSrc,
 		   output logic       MemWrite,
 		   output logic       PCSrc, ALUSrc,
@@ -117,15 +118,14 @@ module controller (input  logic [6:0] op,
    logic 			      Branch;
    logic            BranchControl;
 
-    //TODO: this flag system might be too x86 like, this isnt x86 silly!!
-   always_comb //TODO: might change from switch statement to more condensed logic, use ~funct3[0] for exlusive instruction pairs beq, bne etc
+   always_comb
     case(funct3)
     3'b000: BranchControl = Zero;                     //beq
     3'b001: BranchControl = ~Zero;                    //bne
     3'b100: BranchControl = ~(Negative == Overflow);  //blt
     3'b101: BranchControl = Negative == Overflow;     //bge
-    3'b110: BranchControl = (Negative | Overflow);    //bltu
-    3'b111: BranchControl = (~Negative & ~Overflow) | Zero;   //bgeu
+    3'b110: BranchControl = Carry;                    //bltu
+    3'b111: BranchControl = ~Carry;                   //bgeu
     default: BranchControl = 1'b0;
     endcase
    
@@ -207,7 +207,7 @@ module datapath (input  logic        clk, reset,
 		 input  logic 	     RegWrite,
 		 input  logic [2:0]  ImmSrc,
 		 input  logic [3:0]  ALUControl,
-		 output logic 	     Zero, Negative, Overflow,
+		 output logic 	     Zero, Negative, Overflow, Carry,
 		 output logic [31:0] PC,
 		 input  logic [31:0] Instr,
 		 output logic [31:0] ALUResult, WriteData,
@@ -236,7 +236,7 @@ module datapath (input  logic        clk, reset,
    // ALU logic
    mux2 #(32)  srcamux(RD1, PC, AddPC, SrcA); //added by us
    mux2 #(32)  srcbmux (ToWrite, ImmExt, ALUSrc, SrcB);
-   alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero, Negative, Overflow);
+   alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero, Negative, Overflow, Carry);
    mux3 #(32) resultmux (ALUResult, FromRead, PCPlus4,ResultSrc, Result);
    // Read/WriteLogic
    subwordwrite sww(ToWrite,Instr[13:12],ALUResult[1:0],WriteData,ByteMask); //added by us
@@ -330,8 +330,8 @@ endmodule // top
 module imem (input  logic [31:0] a,
 	     output logic [31:0] rd);
    
-   //logic [31:0] 		 RAM[63:0];
-   logic [31:0] 		 RAM[2047:0];
+   logic [31:0] 		 RAM[63:0];
+   //logic [31:0] 		 RAM[2047:0];
    
    assign rd = RAM[a[31:2]]; // word aligned
    
@@ -343,6 +343,7 @@ module dmem (input  logic        clk, we,
 	     output logic [31:0] rd);
    
    logic [31:0] 		 RAM[255:0];
+   //logic [31:0] 		 RAM[4294967295:0];
    logic [31:0]      BitMask; //added by us
 
    assign BitMask = {{8{ByteMask[3]}},{8{ByteMask[2]}},{8{ByteMask[1]}},{8{ByteMask[0]}}};
@@ -417,7 +418,7 @@ endmodule
 module alu (input  logic [31:0] a, b,
             input  logic [3:0] 	alucontrol,
             output logic [31:0] result,
-            output logic 	zero, negative, overflow);
+            output logic 	zero, negative, overflow, carry);
 
    logic [31:0] 	       condinvb, sum;
    logic 		       v;              // overflow
@@ -449,6 +450,8 @@ module alu (input  logic [31:0] a, b,
    assign zero = (result == 32'b0);
    assign negative = (result[31] == 1); //MSB is 1, two complement
    assign overflow = v;
+   //assign carry = (a - b) == (a + ~b + 1);
+   assign carry = a < b;
    assign v = ~(alucontrol[0] ^ a[31] ^ b[31]) & (a[31] ^ sum[31]) & isAddSub;
    
 endmodule // alu
