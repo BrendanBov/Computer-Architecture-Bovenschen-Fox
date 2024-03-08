@@ -33,9 +33,11 @@ module testbench();
    logic [31:0] WriteData;
    logic [31:0] DataAdr;
    logic        MemWrite;
+   logic        PCReady;
+   logic        MemStrobe;
 
    // instantiate device to be tested
-   top dut(clk, reset, WriteData, DataAdr, MemWrite);
+   top dut(clk, reset, PCReady, WriteData, DataAdr, MemWrite,MemStrobe);
 
    initial
      begin
@@ -81,7 +83,9 @@ module riscvsingle (input  logic        clk, reset,
 		    output logic 	MemWrite,
 		    output logic [31:0] ALUResult, WriteData,
 		    input  logic [31:0] ReadData,
-        output logic [3:0]  ByteMask);
+        input  logic        PCReady,
+        output logic [3:0]  ByteMask,
+        output logic        MemStrobe);
    
    logic 				ALUSrc, RegWrite, Jump, Zero, Negative, Overflow; //negative and overflow added by us
    logic [1:0] 				ResultSrc;
@@ -93,12 +97,12 @@ module riscvsingle (input  logic        clk, reset,
    controller c (Instr[6:0], Instr[14:12], Instr[30], Zero, Negative, Overflow, Carry,
 		 ResultSrc, MemWrite, PCSrc,
 		 ALUSrc, RegWrite, Jump,
-		 ImmSrc, ALUControl,AddPC);
+		 ImmSrc, ALUControl,AddPC,MemStrobe);
    datapath dp (clk, reset, ResultSrc, PCSrc,
 		ALUSrc, RegWrite,
 		ImmSrc, ALUControl,
 		Zero, Negative, Overflow, Carry, PC, Instr,
-		ALUResult, WriteData, ReadData,AddPC,ByteMask);
+		ALUResult, WriteData, ReadData,AddPC,PCReady,ByteMask);
    
 endmodule // riscvsingle
 
@@ -112,7 +116,8 @@ module controller (input  logic [6:0] op,
 		   output logic       RegWrite, Jump,
 		   output logic [2:0] ImmSrc,
 		   output logic [3:0] ALUControl,
-       output logic       AddPC);
+       output logic       AddPC,
+       output logic       MemStrobe);
    
    logic [1:0] 			      ALUOp;
    logic 			      Branch;
@@ -134,6 +139,7 @@ module controller (input  logic [6:0] op,
    aludec ad (op[5], funct3, funct7b5, ALUOp, ALUControl);
    assign PCSrc = Branch & BranchControl | Jump;
    assign AddPC = (op == 7'b0010111); //for auipc
+   assign MemStrobe = ((op == 7'b0000011) || (op == 7'b0100011)); //if L or S
    
 endmodule // controller
 
@@ -213,6 +219,7 @@ module datapath (input  logic        clk, reset,
 		 output logic [31:0] ALUResult, WriteData,
 		 input  logic [31:0] ReadData,
      input  logic        AddPC,
+     input  logic        PCReady,
      output logic [3:0]  ByteMask);
    
    logic [31:0] 		     PCNext, PCPlus4, PCTarget, PCTargetSrcA; //added by us
@@ -224,7 +231,7 @@ module datapath (input  logic        clk, reset,
    logic [31:0]          FromRead; //added by us
    
    // next PC logic
-   flopr #(32) pcreg (clk, reset, PCNext, PC);
+   flopenr #(32) pcreg (clk, reset,PCReady, PCNext, PC);
    adder  pcadd4 (PC, 32'd4, PCPlus4);
    adder  pcaddbranch (PCTargetSrcA, ImmExt, PCTarget);
    mux2 #(32)  pcmux (PCPlus4, PCTarget, PCSrc, PCNext);
@@ -312,16 +319,16 @@ module mux3 #(parameter WIDTH = 8)
    
 endmodule // mux3
 
-module top (input  logic        clk, reset,
+module top (input  logic        clk, reset, PCReady,
 	    output logic [31:0] WriteData, DataAdr,
-	    output logic 	MemWrite);
+	    output logic 	MemWrite, MemStrobe);
    
    logic [31:0] 		PC, Instr, ReadData;
    logic [3:0]      ByteMask; //added by us
    
    // instantiate processor and memories
    riscvsingle rv32single (clk, reset, PC, Instr, MemWrite, DataAdr,
-			   WriteData, ReadData,ByteMask);
+			   WriteData, ReadData, PCReady, ByteMask,MemStrobe);
    imem imem (PC, Instr);
    dmem dmem (clk, MemWrite, DataAdr, WriteData, ByteMask, ReadData);
    
