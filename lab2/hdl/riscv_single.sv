@@ -359,7 +359,7 @@ module dmem (input  logic        clk, we,
    /*always_ff @(posedge clk)
      if (we) RAM[a[31:2]] <= wd;*/
     always_ff @(posedge clk)
-      if (we) RAM[a[31:2]] <= (rd & ~BitMask) | wd;
+      if (we) RAM[a[31:2]] <= (rd & ~BitMask) | (wd & BitMask);
    
 endmodule // dmem
 
