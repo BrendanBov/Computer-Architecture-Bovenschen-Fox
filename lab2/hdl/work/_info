@@ -120,6 +120,22 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
 !s11f MIXED_VERSIONS
 R0
 R0
@@ -175,10 +191,10 @@ n@_opt2
 R6
 R1
 T_opt3
-!s110 1709772170
-V4@>UXM9oRfQPQZ0E1<4eX2
+!s110 1711240121
+VI<><>NS@fFT@V4NN:MbLf0
 R2
-=1-7c10c924b963-65e90d8a-62-5180
+=1-7c10c924b963-65ff73b9-a8-10cc
 R3
 R4
 R5
@@ -186,13 +202,13 @@ n@_opt3
 R6
 vadder
 Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z8 !s110 1709772163
+Z8 !s110 1711240120
 !i10b 1
 !s100 g4AeJ?R:LIhQR_?ScRN7c0
 IL4Jo`_VVDIB84B1OmWMk60
 S1
 Z9 dC:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab2/hdl
-Z10 w1709772136
+Z10 w1711240110
 Z11 8riscv_single.sv
 Z12 Friscv_single.sv
 !i122 0
@@ -202,7 +218,7 @@ Z14 OL;L;2021.3;73
 r1
 !s85 0
 31
-Z15 !s108 1709772163.000000
+Z15 !s108 1711240120.000000
 Z16 !s107 riscv_single.sv|
 Z17 !s90 -reportprogress|300|riscv_single.sv|
 !i113 0
@@ -212,15 +228,15 @@ valu
 R7
 R8
 !i10b 1
-!s100 mZUjW[_e7dYGX2;P4<jfX2
-I03hS5FJ7f;ZJoRDGcjim@3
+!s100 3FD_VgiPeYYhVW56JQCNX3
+I@8BBbZj]=m2]PV8N45edh2
 S1
 R9
 R10
 R11
 R12
 !i122 0
-L0 418 40
+L0 417 40
 R13
 R14
 r1
@@ -308,15 +324,15 @@ vdmem
 R7
 R8
 !i10b 1
-!s100 <K@Eh?nS0Ue2MLYJioOna3
-IKa0<Bkm`]T8=<F>O[3b090
+!s100 Fz[JK7kE85LMgSP>4739_3
+IlkSh5DUDECjb4C06zHdT40
 S1
 R9
 R10
 R11
 R12
 !i122 0
-L0 340 18
+L0 340 17
 R13
 R14
 r1
@@ -500,15 +516,15 @@ vregfile
 R7
 R8
 !i10b 1
-!s100 03K^k8<=h6U]G?eID3KJn1
-I@=mz6WfBiIJTOzL3NAXZW2
+!s100 ViII:ZN_2a]PC;0[Q<6nQ3
+Iomb4eJ[X17LBz_J3aQPXm1
 S1
 R9
 R10
 R11
 R12
 !i122 0
-L0 459 20
+L0 458 20
 R13
 R14
 r1
@@ -548,15 +564,15 @@ vsubwordread
 R7
 R8
 !i10b 1
-!s100 ;dl?]>7mmAD]4gF1<=Lk`3
-I]g=7LVh6BDoW2PkUn2FZ60
+!s100 77b=a6lAzVj:JL`Ld7dOA1
+I>gkObe==Dn9EVajGiY^N_2
 S1
 R9
 R10
 R11
 R12
 !i122 0
-L0 386 31
+L0 385 31
 R13
 R14
 r1
@@ -572,15 +588,15 @@ vsubwordwrite
 R7
 R8
 !i10b 1
-!s100 lSBAa36ZDBVD54F4V@5l:1
-IZ8OIWD=3;7OE=;N`XlCcP3
+!s100 OaEhjm:7]R]akmK0LT]Ch3
+IcXUXY;`a`IPc1eaAP9Hb=0
 S1
 R9
 R10
 R11
 R12
 !i122 0
-L0 359 26
+L0 358 26
 R13
 R14
 r1
@@ -596,8 +612,8 @@ vtestbench
 R7
 R8
 !i10b 1
-!s100 >V>7bDZaU4^<B0`ICcV8:3
-IH8IjVc1iVn4;^Ig;VmSk83
+!s100 3^j>TFl7J[BKk`M?B6z`31
+I<D=afLC7lKakLk6Jk9oG`2
 S1
 R9
 R10

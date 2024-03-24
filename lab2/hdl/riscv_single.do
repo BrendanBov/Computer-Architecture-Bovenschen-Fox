@@ -60,11 +60,18 @@ add wave -noupdate -divider -height 32 "ALU Decoder"
 add wave -hex /testbench/dut/rv32single/c/ad/*
 add wave -noupdate -divider -height 32 "Data Memory"
 add wave -hex /testbench/dut/dmem/*
+add wave -noupdate -divider -height 32 "Subword Read"
+add wave -hex /testbench/dut/rv32single/dp/swr/*
+add wave -noupdate -divider -height 32 "Subword Write"
+add wave -hex /testbench/dut/rv32single/dp/sww/*
 add wave -noupdate -divider -height 32 "Instruction Memory"
 add wave -hex /testbench/dut/imem/*
 add wave -noupdate -divider -height 32 "Register File"
 add wave -hex /testbench/dut/rv32single/dp/rf/*
 add wave -hex /testbench/dut/rv32single/dp/rf/rf
+add wave -noupdate -divider -height 32 "RAM"
+add wave -hex /testbench/dut/dmem/RAM
+
 
 
 -- Set Wave Output Items 
