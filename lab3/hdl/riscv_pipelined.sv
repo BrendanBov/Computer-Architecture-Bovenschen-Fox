@@ -95,7 +95,7 @@ module testbench();
         //memfilename = {"../riscvtest/riscvtest.memfile"};
         //memfilename = {"../riscvtest/fib.memfile"};
         //memfilename = {"../othertests/loadAndStore.memfile"};
-        memfilename = {"../lab1tests/lui.memfile"};
+        memfilename = {"../lab1tests/bne.memfile"};
         $readmemh(memfilename, dut.imem.RAM);
      end
    
@@ -235,8 +235,8 @@ module controller(input  logic		 clk, reset,
     case(funct3E)
     3'b000: BranchControlE = ZeroE;                     //beq
     3'b001: BranchControlE = ~ZeroE;                    //bne
-    3'b100: BranchControlE = ~(NegativeE == OverflowE);  //blt
-    3'b101: BranchControlE = NegativeE == OverflowE;     //bge
+    3'b100: BranchControlE = NegativeE ^ OverflowE;     //blt
+    3'b101: BranchControlE = ~(NegativeE ^ OverflowE);  //bge
     3'b110: BranchControlE = CarryE;                    //bltu
     3'b111: BranchControlE = ~CarryE;                   //bgeu
     default: BranchControlE = 1'b0;
@@ -264,7 +264,7 @@ module maindec(input  logic [6:0] op,
                output logic [2:0] ImmSrc,
                output logic [1:0] ALUOp);
 
-   logic [10:0] 		  controls;
+   logic [11:0] 		  controls;
 
    assign {RegWrite, ImmSrc, ALUSrc, MemWrite,
            ResultSrc, Branch, ALUOp, Jump} = controls;

@@ -13,72 +13,7 @@
 # //
 # do riscv_pipelined.do
 # Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:16:05 on Mar 29,2024
-# vlog -reportprogress 300 riscv_pipelined.sv 
-# -- Compiling module testbench
-# -- Compiling module top
-# -- Compiling module riscv
-# -- Compiling module controller
-# ** Error: riscv_pipelined.sv(234): (vlog-2730) Undefined variable: 'funct3'.
-# -- Compiling module maindec
-# -- Compiling module aludec
-# -- Compiling module datapath
-# -- Compiling module hazard
-# -- Compiling module regfile
-# -- Compiling module adder
-# -- Compiling module extend
-# -- Compiling module flopr
-# -- Compiling module flopenr
-# -- Compiling module flopenrc
-# -- Compiling module floprc
-# -- Compiling module mux2
-# -- Compiling module mux3
-# -- Compiling module imem
-# -- Compiling module dmem
-# -- Compiling module alu
-# ** Error: riscv_pipelined.sv(601): (vlog-2730) Undefined variable: 'signedA'.
-# End time: 16:16:05 on Mar 29,2024, Elapsed time: 0:00:00
-# Errors: 2, Warnings: 0
-# ** Error: C:/modeltech64_2021.3/win64/vlog failed.
-# Error in macro ./riscv_pipelined.do line 30
-# C:/modeltech64_2021.3/win64/vlog failed.
-#     while executing
-# "vlog riscv_pipelined.sv"
-do riscv_pipelined.do
-# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:28:50 on Mar 29,2024
-# vlog -reportprogress 300 riscv_pipelined.sv 
-# -- Compiling module testbench
-# -- Compiling module top
-# -- Compiling module riscv
-# -- Compiling module controller
-# ** Error: riscv_pipelined.sv(235): (vlog-2730) Undefined variable: 'funct3E'.
-# -- Compiling module maindec
-# -- Compiling module aludec
-# -- Compiling module datapath
-# -- Compiling module hazard
-# -- Compiling module regfile
-# -- Compiling module adder
-# -- Compiling module extend
-# -- Compiling module flopr
-# -- Compiling module flopenr
-# -- Compiling module flopenrc
-# -- Compiling module floprc
-# -- Compiling module mux2
-# -- Compiling module mux3
-# -- Compiling module imem
-# -- Compiling module dmem
-# -- Compiling module alu
-# End time: 16:28:50 on Mar 29,2024, Elapsed time: 0:00:00
-# Errors: 1, Warnings: 0
-# ** Error: C:/modeltech64_2021.3/win64/vlog failed.
-# Error in macro ./riscv_pipelined.do line 30
-# C:/modeltech64_2021.3/win64/vlog failed.
-#     while executing
-# "vlog riscv_pipelined.sv"
-do riscv_pipelined.do
-# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:29:28 on Mar 29,2024
+# Start time: 14:43:36 on Apr 05,2024
 # vlog -reportprogress 300 riscv_pipelined.sv 
 # -- Compiling module testbench
 # -- Compiling module top
@@ -103,10 +38,10 @@ do riscv_pipelined.do
 # 
 # Top level modules:
 # 	testbench
-# End time: 16:29:28 on Mar 29,2024, Elapsed time: 0:00:00
+# End time: 14:43:37 on Apr 05,2024, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # vsim -debugdb -voptargs="+acc" work.testbench 
-# Start time: 16:29:28 on Mar 29,2024
+# Start time: 14:43:37 on Apr 05,2024
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vsim-8611) Generating debug db.
 # ** Note: (vopt-4301) Memory core inferred for signal 'RAM' width=32, depth=256, type=RAM at location riscv_pipelined.sv:569
@@ -134,10 +69,6 @@ do riscv_pipelined.do
 # Loading work.hazard(fast)
 # Loading work.imem(fast)
 # Loading work.dmem(fast)
-# ** Warning: (vsim-3015) [PCDPC] - Port size (11) does not match connection size (14) for port 'd'. The port definition is at: riscv_pipelined.sv(529).
-#    Time: 0 ns  Iteration: 0  Instance: /testbench/dut/rv32pipe/c/controlregE File: riscv_pipelined.sv Line: 230
-# ** Warning: (vsim-3015) [PCDPC] - Port size (11) does not match connection size (14) for port 'q'. The port definition is at: riscv_pipelined.sv(530).
-#    Time: 0 ns  Iteration: 0  Instance: /testbench/dut/rv32pipe/c/controlregE File: riscv_pipelined.sv Line: 230
 # ** Note: (vsim-8900) Creating design debug database vsim.dbg.
 # ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
 # Debug data file does not match loaded design.
@@ -157,7 +88,7 @@ do riscv_pipelined.do
 # ** Warning: (vlib-34) Library already exists at "work".
 # Errors: 0, Warnings: 1
 # Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:32:05 on Mar 29,2024
+# Start time: 16:13:05 on Apr 05,2024
 # vlog -reportprogress 300 riscv_pipelined.sv 
 # -- Compiling module testbench
 # -- Compiling module top
@@ -182,168 +113,12 @@ do riscv_pipelined.do
 # 
 # Top level modules:
 # 	testbench
-# End time: 16:32:05 on Mar 29,2024, Elapsed time: 0:00:00
+# End time: 16:13:05 on Apr 05,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# End time: 16:32:06 on Mar 29,2024, Elapsed time: 0:02:38
-# Errors: 2, Warnings: 2
-# vsim -debugdb -voptargs="+acc" work.testbench 
-# Start time: 16:32:06 on Mar 29,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vsim-8611) Generating debug db.
-# Loading sv_std.std
-# Loading work.testbench(fast)
-# Loading work.top(fast)
-# Loading work.riscv(fast)
-# Loading work.controller(fast)
-# Loading work.maindec(fast)
-# Loading work.aludec(fast)
-# Loading work.floprc(fast)
-# Loading work.flopr(fast)
-# Loading work.flopr(fast__1)
-# Loading work.datapath(fast)
-# Loading work.mux2(fast)
-# Loading work.flopenr(fast)
-# Loading work.adder(fast)
-# Loading work.flopenrc(fast)
-# Loading work.regfile(fast)
-# Loading work.extend(fast)
-# Loading work.floprc(fast__1)
-# Loading work.mux3(fast)
-# Loading work.alu(fast)
-# Loading work.flopr(fast__2)
-# Loading work.hazard(fast)
-# Loading work.imem(fast)
-# Loading work.dmem(fast)
-# ** Warning: (vsim-3015) [PCDPC] - Port size (13) does not match connection size (14) for port 'd'. The port definition is at: riscv_pipelined.sv(529).
-#    Time: 0 ns  Iteration: 0  Instance: /testbench/dut/rv32pipe/c/controlregE File: riscv_pipelined.sv Line: 230
-# ** Warning: (vsim-3015) [PCDPC] - Port size (13) does not match connection size (14) for port 'q'. The port definition is at: riscv_pipelined.sv(530).
-#    Time: 0 ns  Iteration: 0  Instance: /testbench/dut/rv32pipe/c/controlregE File: riscv_pipelined.sv Line: 230
-# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
-# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
-# Debug data file does not match loaded design.
-# Debug data file does not match loaded design.
-# ** Error: Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-# Error in macro ./riscv_pipelined.do line 88
-# Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-#     while executing
-# "add schematic -full sim:/testbench/dut/rv32pipe"
-do riscv_pipelined.do
-# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
-# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
-# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
-# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
-# ** Warning: (vlib-34) Library already exists at "work".
-# Errors: 0, Warnings: 1
-# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:32:36 on Mar 29,2024
-# vlog -reportprogress 300 riscv_pipelined.sv 
-# -- Compiling module testbench
-# -- Compiling module top
-# -- Compiling module riscv
-# -- Compiling module controller
-# -- Compiling module maindec
-# -- Compiling module aludec
-# -- Compiling module datapath
-# -- Compiling module hazard
-# -- Compiling module regfile
-# -- Compiling module adder
-# -- Compiling module extend
-# -- Compiling module flopr
-# -- Compiling module flopenr
-# -- Compiling module flopenrc
-# -- Compiling module floprc
-# -- Compiling module mux2
-# -- Compiling module mux3
-# -- Compiling module imem
-# -- Compiling module dmem
-# -- Compiling module alu
-# 
-# Top level modules:
-# 	testbench
-# End time: 16:32:36 on Mar 29,2024, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# End time: 16:32:37 on Mar 29,2024, Elapsed time: 0:00:31
-# Errors: 2, Warnings: 2
-# vsim -debugdb -voptargs="+acc" work.testbench 
-# Start time: 16:32:37 on Mar 29,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vsim-8611) Generating debug db.
-# Loading sv_std.std
-# Loading work.testbench(fast)
-# Loading work.top(fast)
-# Loading work.riscv(fast)
-# Loading work.controller(fast)
-# Loading work.maindec(fast)
-# Loading work.aludec(fast)
-# Loading work.floprc(fast)
-# Loading work.flopr(fast)
-# Loading work.flopr(fast__1)
-# Loading work.datapath(fast)
-# Loading work.mux2(fast)
-# Loading work.flopenr(fast)
-# Loading work.adder(fast)
-# Loading work.flopenrc(fast)
-# Loading work.regfile(fast)
-# Loading work.extend(fast)
-# Loading work.floprc(fast__1)
-# Loading work.mux3(fast)
-# Loading work.alu(fast)
-# Loading work.flopr(fast__2)
-# Loading work.hazard(fast)
-# Loading work.imem(fast)
-# Loading work.dmem(fast)
-# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
-# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
-# Debug data file does not match loaded design.
-# Debug data file does not match loaded design.
-# ** Error: Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-# Error in macro ./riscv_pipelined.do line 88
-# Could not open the database because of the following problem accessing the required debug information:
-# Debug data file does not match loaded design.
-#     while executing
-# "add schematic -full sim:/testbench/dut/rv32pipe"
-do riscv_pipelined.do
-# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
-# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
-# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
-# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
-# ** Warning: (vlib-34) Library already exists at "work".
-# Errors: 0, Warnings: 1
-# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
-# Start time: 16:36:00 on Mar 29,2024
-# vlog -reportprogress 300 riscv_pipelined.sv 
-# -- Compiling module testbench
-# -- Compiling module top
-# -- Compiling module riscv
-# -- Compiling module controller
-# -- Compiling module maindec
-# -- Compiling module aludec
-# -- Compiling module datapath
-# -- Compiling module hazard
-# -- Compiling module regfile
-# -- Compiling module adder
-# -- Compiling module extend
-# -- Compiling module flopr
-# -- Compiling module flopenr
-# -- Compiling module flopenrc
-# -- Compiling module floprc
-# -- Compiling module mux2
-# -- Compiling module mux3
-# -- Compiling module imem
-# -- Compiling module dmem
-# -- Compiling module alu
-# 
-# Top level modules:
-# 	testbench
-# End time: 16:36:00 on Mar 29,2024, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# End time: 16:36:00 on Mar 29,2024, Elapsed time: 0:03:23
+# End time: 16:13:06 on Apr 05,2024, Elapsed time: 1:29:29
 # Errors: 2, Warnings: 0
 # vsim -debugdb -voptargs="+acc" work.testbench 
-# Start time: 16:36:00 on Mar 29,2024
+# Start time: 16:13:06 on Apr 05,2024
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Note: (vsim-8611) Generating debug db.
 # Loading sv_std.std
@@ -381,3 +156,840 @@ do riscv_pipelined.do
 # Debug data file does not match loaded design.
 #     while executing
 # "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:14:02 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:14:02 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:14:03 on Apr 05,2024, Elapsed time: 0:00:57
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:14:03 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:43:57 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:43:57 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:43:59 on Apr 05,2024, Elapsed time: 0:29:56
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:43:59 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:45:27 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:45:27 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:45:29 on Apr 05,2024, Elapsed time: 0:01:30
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:45:29 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:46:03 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:46:03 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:46:04 on Apr 05,2024, Elapsed time: 0:00:35
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:46:04 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:47:23 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:47:23 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:47:24 on Apr 05,2024, Elapsed time: 0:01:20
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:47:24 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:51:04 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:51:04 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:51:05 on Apr 05,2024, Elapsed time: 0:03:41
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:51:05 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:55:21 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:55:21 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:55:23 on Apr 05,2024, Elapsed time: 0:04:18
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:55:23 on Apr 05,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:56:36 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:56:36 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:56:37 on Apr 05,2024, Elapsed time: 0:01:14
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:56:37 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:57:11 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:57:11 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:57:13 on Apr 05,2024, Elapsed time: 0:00:36
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:57:13 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:58:27 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:58:27 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:58:28 on Apr 05,2024, Elapsed time: 0:01:15
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:58:28 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+do riscv_pipelined.do
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is brend@LAPTOP-E202R8E9.
+# Error 31: Unable to unlink file "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt/__mti.dbg".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer/#64_opt".
+# Error 133: Unable to remove directory "C:/Users/brend/OneDrive/Documents/GitHub/Computer-Architecture-Bovenschen-Fox/lab3/hdl/work/_dbcontainer".
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vlog 2021.3 Compiler 2021.07 Jul 13 2021
+# Start time: 16:58:51 on Apr 05,2024
+# vlog -reportprogress 300 riscv_pipelined.sv 
+# -- Compiling module testbench
+# -- Compiling module top
+# -- Compiling module riscv
+# -- Compiling module controller
+# -- Compiling module maindec
+# -- Compiling module aludec
+# -- Compiling module datapath
+# -- Compiling module hazard
+# -- Compiling module regfile
+# -- Compiling module adder
+# -- Compiling module extend
+# -- Compiling module flopr
+# -- Compiling module flopenr
+# -- Compiling module flopenrc
+# -- Compiling module floprc
+# -- Compiling module mux2
+# -- Compiling module mux3
+# -- Compiling module imem
+# -- Compiling module dmem
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:58:51 on Apr 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:58:52 on Apr 05,2024, Elapsed time: 0:00:24
+# Errors: 2, Warnings: 0
+# vsim -debugdb -voptargs="+acc" work.testbench 
+# Start time: 16:58:52 on Apr 05,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.riscv(fast)
+# Loading work.controller(fast)
+# Loading work.maindec(fast)
+# Loading work.aludec(fast)
+# Loading work.floprc(fast)
+# Loading work.flopr(fast)
+# Loading work.flopr(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopenr(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.floprc(fast__1)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopr(fast__2)
+# Loading work.hazard(fast)
+# Loading work.imem(fast)
+# Loading work.dmem(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# ** Error: (vsim-8357) Internal debugDB error id:ct1  ret:1 table context_tbl already exists
+# Debug data file does not match loaded design.
+# Debug data file does not match loaded design.
+# ** Error: Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+# Error in macro ./riscv_pipelined.do line 88
+# Could not open the database because of the following problem accessing the required debug information:
+# Debug data file does not match loaded design.
+#     while executing
+# "add schematic -full sim:/testbench/dut/rv32pipe"
+# End time: 16:59:24 on Apr 05,2024, Elapsed time: 0:00:32
+# Errors: 2, Warnings: 0
