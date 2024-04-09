@@ -95,7 +95,7 @@ module testbench();
         //memfilename = {"../riscvtest/riscvtest.memfile"};
         //memfilename = {"../riscvtest/fib.memfile"};
         //memfilename = {"../othertests/loadAndStore.memfile"};
-        memfilename = {"../lab1tests/auipc.memfile"};
+        memfilename = {"../lab1tests/jalr.memfile"};
         $readmemh(memfilename, dut.imem.RAM);
      end
    
@@ -358,9 +358,10 @@ module datapath(input logic clk, reset,
    logic [31:0] 		    ImmExtD;
    logic [4:0] 			    RdD;
    // Execute stage signals
-   logic [31:0] 		    RD1E,RD1MuxedE, RD2E;
+   logic [31:0] 		    RD1E, RD1MuxedE, RD2E;
    logic [31:0] 		    PCE, ImmExtE;
    logic [31:0] 		    SrcAE, SrcBE;
+   logic [31:0]         PCTargetSrcAE;
    logic [31:0] 		    ALUResultE;
    logic [31:0] 		    WriteDataE;
    logic [31:0] 		    PCPlus4E;
@@ -402,7 +403,8 @@ module datapath(input logic clk, reset,
    mux2   #(32)  srcamux(RD1MuxedE, PCE, ALUSrcE[1], SrcAE);
    mux2   #(32)  srcbmux(WriteDataE, ImmExtE, ALUSrcE[0], SrcBE);
    alu           alu(SrcAE, SrcBE, ALUControlE, ALUResultE, ZeroE, NegativeE, OverflowE, CarryE);
-   adder         branchadd(ImmExtE, PCE, PCTargetE);
+   mux2 #(32)  pctargetmux(PCE, SrcAE, ALUSrcE[0], PCTargetSrcAE);
+   adder         branchadd(ImmExtE, PCTargetSrcAE, PCTargetE);
 
    // Memory stage pipeline register
    flopr  #(101) regM(clk, reset, 
