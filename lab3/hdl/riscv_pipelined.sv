@@ -94,7 +94,7 @@ module testbench();
 	string memfilename;
         //memfilename = {"../riscvtest/riscvtest.memfile"};
         //memfilename = {"../riscvtest/fib.memfile"};
-        //memfilename = {"../othertests/loadAndStore.memfile"};
+        //memfilename = {"../ourtests/loadAndStore.memfile"};
         memfilename = {"../lab1tests/jalr.memfile"};
         $readmemh(memfilename, dut.imem.RAM);
      end
@@ -133,12 +133,13 @@ module top(input  logic        clk, reset,
            output logic        MemWriteM);
 
    logic [31:0] 	       PCF, InstrF, ReadDataM;
+   logic [3:0]           ByteMaskM;
    
    // instantiate processor and memories
    riscv rv32pipe (clk, reset, PCF, InstrF, MemWriteM, DataAdrM, 
-		   WriteDataM, ReadDataM);
+		   WriteDataM,ByteMaskM, ReadDataM);
    imem imem (PCF, InstrF);
-   dmem dmem (clk, MemWriteM, DataAdrM, WriteDataM, ReadDataM);
+   dmem dmem (clk, MemWriteM, DataAdrM, WriteDataM, ByteMaskM, ReadDataM);
    
 endmodule
 
@@ -147,6 +148,7 @@ module riscv(input  logic        clk, reset,
              input logic [31:0]  InstrF,
              output logic 	 MemWriteM,
              output logic [31:0] ALUResultM, WriteDataM,
+             output logic [3:0]  ByteMaskM,
              input logic [31:0]  ReadDataM);
 
    logic [6:0] 			 opD;
@@ -159,6 +161,7 @@ module riscv(input  logic        clk, reset,
    logic [1:0] ALUSrcE;
    logic 			 ResultSrcEb0;
    logic 			 RegWriteM;
+   logic [2:0] funct3M;
    logic [1:0] 			 ResultSrcW;
    logic 			 RegWriteW;
 
@@ -171,7 +174,7 @@ module riscv(input  logic        clk, reset,
 		opD, funct3D, funct7b5D, ImmSrcD,
 		FlushE, ZeroE, NegativeE, OverflowE, CarryE, 
     PCSrcE, ALUControlE, ALUSrcE, ResultSrcEb0,
-		MemWriteM, RegWriteM, 
+		MemWriteM, RegWriteM, funct3M,
 		RegWriteW, ResultSrcW);
 
    datapath dp(clk, reset,
@@ -179,8 +182,8 @@ module riscv(input  logic        clk, reset,
                 opD, funct3D, funct7b5D, StallD, FlushD, ImmSrcD,
                 FlushE, ForwardAE, ForwardBE, PCSrcE, ALUControlE, ALUSrcE, 
                 ZeroE, NegativeE, OverflowE, CarryE,
-               MemWriteM, WriteDataM, ALUResultM, ReadDataM,
-               RegWriteW, ResultSrcW,
+               MemWriteM, WriteDataM, ALUResultM, ReadDataM, funct3M, ByteMaskM,
+               RegWriteW, ResultSrcW, 
                Rs1D, Rs2D, Rs1E, Rs2E, RdE, RdM, RdW);
 
    hazard  hu(Rs1D, Rs2D, Rs1E, Rs2E, RdE, RdM, RdW,
@@ -204,7 +207,8 @@ module controller(input  logic		 clk, reset,
                   output logic 	     ResultSrcEb0, // for Hazard Unit
                   // Memory stage control signals
                   output logic 	     MemWriteM,
-                  output logic 	     RegWriteM, // for Hazard Unit				  
+                  output logic 	     RegWriteM, // for Hazard Unit	
+                  output logic [2:0] funct3M,			  
                   // Writeback stage control signals
                   output logic 	     RegWriteW, // for datapath and Hazard Unit
                   output logic [1:0] ResultSrcW);
@@ -246,9 +250,9 @@ module controller(input  logic		 clk, reset,
    assign ResultSrcEb0 = ResultSrcE[0];
    
    // Memory stage pipeline control register
-   flopr #(4) controlregM(clk, reset,
-                          {RegWriteE, ResultSrcE, MemWriteE},
-                          {RegWriteM, ResultSrcM, MemWriteM});
+   flopr #(7) controlregM(clk, reset,
+                          {RegWriteE, ResultSrcE, MemWriteE, funct3E},
+                          {RegWriteM, ResultSrcM, MemWriteM, funct3M});
    
    // Writeback stage pipeline control register
    flopr #(3) controlregW(clk, reset,
@@ -342,6 +346,8 @@ module datapath(input logic clk, reset,
                 input logic 	    MemWriteM, 
                 output logic [31:0] WriteDataM, ALUResultM,
                 input logic [31:0]  ReadDataM,
+                input logic [2:0]   funct3M,
+                output logic [3:0]  ByteMaskM,
                 // Writeback stage signals
                 input logic 	    RegWriteW, 
                 input logic [1:0]   ResultSrcW,
@@ -368,6 +374,8 @@ module datapath(input logic clk, reset,
    logic [31:0] 		    PCTargetE;
    // Memory stage signals
    logic [31:0] 		    PCPlus4M;
+   logic [31:0] 		    PreWriteDataM;
+   logic [31:0]         PostReadDataM;
    // Writeback stage signals
    logic [31:0] 		    ALUResultW;
    logic [31:0] 		    ReadDataW;
@@ -409,13 +417,17 @@ module datapath(input logic clk, reset,
    // Memory stage pipeline register
    flopr  #(101) regM(clk, reset, 
                       {ALUResultE, WriteDataE, RdE, PCPlus4E},
-                      {ALUResultM, WriteDataM, RdM, PCPlus4M});
+                      {ALUResultM, PreWriteDataM, RdM, PCPlus4M});
    
    // Writeback stage pipeline register and logic
    flopr  #(101) regW(clk, reset, 
-                      {ALUResultM, ReadDataM, RdM, PCPlus4M},
+                      {ALUResultM, PostReadDataM, RdM, PCPlus4M},
                       {ALUResultW, ReadDataW, RdW, PCPlus4W});
    mux3   #(32)  resultmux(ALUResultW, ReadDataW, PCPlus4W, ResultSrcW, ResultW);	
+   //Subword Read/Write
+   subwordwrite sww(PreWriteDataM,funct3M[1:0],ALUResultM[1:0],WriteDataM,ByteMaskM);
+   subwordread swr(ReadDataM,funct3M,ALUResultM[1:0],PostReadDataM);
+
 endmodule
 
 // Hazard Unit: forward, stall, and flush
@@ -569,16 +581,78 @@ endmodule // imem
 
 module dmem (input  logic        clk, we,
 	     input  logic [31:0] a, wd,
+       input  logic [3:0] ByteMask,
 	     output logic [31:0] rd);
    
    logic [31:0] 		 RAM[255:0];
+   logic [31:0]      BitMask;
+
+   assign BitMask = {{8{ByteMask[3]}},{8{ByteMask[2]}},{8{ByteMask[1]}},{8{ByteMask[0]}}};
    
    assign rd = RAM[a[31:2]]; // word aligned
-   always_ff @(posedge clk)
-     if (we) RAM[a[31:2]] <= wd;
+    always_ff @(posedge clk)
+      if (we) RAM[a[31:2]] <= (rd & ~BitMask) | (wd & BitMask);
    
 endmodule // dmem
 
+module subwordwrite(input   logic [31:0]  ToWrite,
+                    input   logic [1:0]   Funct3_2, ByteAdr,
+                    output  logic [31:0]  WriteData,
+                    output  logic [3:0]   ByteMask);
+    
+    always_comb begin
+      case(Funct3_2)
+        2'b00: WriteData = {4{ToWrite[7:0]}};
+        2'b01: WriteData = {2{ToWrite[15:0]}};
+        2'b10: WriteData = ToWrite;
+        default: WriteData = 2'bxx;
+      endcase
+
+      casex({Funct3_2,ByteAdr})
+        4'b00_00: ByteMask = 4'b0001;
+        4'b00_01: ByteMask = 4'b0010;
+        4'b00_10: ByteMask = 4'b0100;
+        4'b00_11: ByteMask = 4'b1000;
+        4'b01_0x: ByteMask = 4'b0011;
+        4'b01_1x: ByteMask = 4'b1100;
+        4'b10_xx: ByteMask = 4'b1111;
+        default:  ByteMask = 4'bxxxx;
+      endcase
+    end
+                
+endmodule
+
+module subwordread(input  logic [31:0]  ReadData,
+                   input  logic [2:0]   Funct3, 
+                   input  logic [1:0]   ByteAdr,
+                   output logic [31:0]  FromRead);
+              
+    logic [7:0]   Byte;
+    logic [15:0]  Halfword;
+    logic [31:0]  Word;
+
+    always_comb begin
+      case(ByteAdr)
+      2'b00: Byte = ReadData[7:0];
+      2'b01: Byte = ReadData[15:8];
+      2'b10: Byte = ReadData[23:16];
+      2'b11: Byte = ReadData[31:24];
+      default: Byte = 8'hxx;
+      endcase
+      Halfword = (ByteAdr[1]) ? ReadData[31:16] : ReadData[15:0];
+      Word = ReadData;
+
+      case(Funct3)
+      3'b000: FromRead = {{24{Byte[7]}},Byte};          //lb
+      3'b100: FromRead = {{24{1'b0}},Byte};             //lbu
+      3'b001: FromRead = {{16{Halfword[15]}},Halfword}; //lh
+      3'b101: FromRead = {{16{1'b0}},Halfword};         //lhu
+      3'b010: FromRead = Word;                          //lw
+      default: FromRead = 32'hxxxxxxxx;
+      endcase
+    end
+
+endmodule
 
 module alu(input  logic [31:0] a, b,
            input logic [3:0]   alucontrol,
