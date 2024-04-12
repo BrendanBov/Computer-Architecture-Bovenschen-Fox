@@ -895,3 +895,5 @@ do riscv_pipelined.do
 # Debug data file does not match loaded design.
 #     while executing
 # "add schematic -full sim:/testbench/dut/rv32pipe"
+# End time: 14:58:54 on Apr 09,2024, Elapsed time: 0:08:15
+# Errors: 2, Warnings: 0
